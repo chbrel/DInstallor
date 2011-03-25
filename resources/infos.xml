@@ -1,0 +1,19 @@
+<infos>
+     <annee>2011</annee>
+     <gamecategories>
+          <gamecategory>plate-forme</gamecategory>
+     </gamecategories>
+     <shortdescription>blabla</shortdescription>
+     <public>MV</public>
+     <title>Titre</title>
+     <authors>
+          <author>Christian Brel</author>
+          <author>Romaric Pighetti</author>
+     </authors>
+     <notes>
+          <note>Voilà quelque notes.</note>
+          <note>Parcequ'il faut bien tester.</note>
+     </notes>
+     <gameplay>Est-ce vraiment un jeu d'écrire des fichiers xml et de les parser? O.o</gameplay>
+     <gamerules>Bah si vous en voulez vraiment il faut écrire un fichier xml valide :p</gamerules>
+</infos>
