@@ -1,0 +1,10 @@
+On ne va pas tout décrire mais je voulais simplement dire 
+que j'indente en utilisant uniquement des espaces et mes 
+indentations font 4 espaces.
+
+Si tu as d'autres habitudes ou quoi que ce soit dit moi 
+histoire que je m'alligne pour que le code soit plus simple
+à lire.
+
+Oui et j'encode en UTF8 aussi donc pareil si tu veux utiliser
+un autre encodage dit moi.
