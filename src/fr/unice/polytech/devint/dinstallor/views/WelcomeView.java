@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
@@ -18,7 +19,7 @@ public class WelcomeView extends InstallationView {
 		
 		this.setLayout(new BorderLayout());
 		
-		JLabel title = new JLabel("Welcome On Board! Lat's go for CD DeViNT 2011 Installation!");
+		JLabel title = new JLabel("Welcome On Board! Let's go for CD DeViNT 2011 Installation!");
 		this.add(title, BorderLayout.NORTH);
 		
 		JLabel welcomeContent = new JLabel("Welcome content!");
@@ -33,6 +34,15 @@ public class WelcomeView extends InstallationView {
 		actions.add(buttons, BorderLayout.EAST);
 		
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				cancel();
+			}
+			
+		});
 		buttons.add(cancelButton);
 		
 		JButton nextButton = new JButton("Next");
@@ -46,6 +56,17 @@ public class WelcomeView extends InstallationView {
 			
 		});
 		buttons.add(nextButton);
+	}
+	
+	public void cancel() {
+		int n = JOptionPane.showConfirmDialog(
+			    this.getController(),
+			    "Voulez-vous vraiment quitter l'installation ?",
+			    "",
+			    JOptionPane.YES_NO_OPTION);
+			if(n == JOptionPane.YES_OPTION) {
+				this.getController().cancel();
+			}
 	}
 	
 	public void nextStep() {

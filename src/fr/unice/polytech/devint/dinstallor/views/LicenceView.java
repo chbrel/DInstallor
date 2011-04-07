@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,8 +12,10 @@ import java.io.InputStreamReader;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
@@ -27,8 +30,8 @@ public class LicenceView extends InstallationView {
 		JLabel title = new JLabel("Licence");
 		this.add(title, BorderLayout.NORTH);
 		
-		String licenceContent="";
-		String licenceFile ="../resources/licence.txt";
+		String licenceContent = "<html>";
+		String licenceFile ="." + File.separator + "licence.txt";
 			
 		try {
 			InputStream ips=new FileInputStream(licenceFile); 
@@ -36,14 +39,18 @@ public class LicenceView extends InstallationView {
 			BufferedReader br=new BufferedReader(ipsr);
 			String ligne;
 			while ((ligne=br.readLine()) != null){
-				licenceContent += ligne + "\n";
+				licenceContent += ligne + "<br/>";
 			}
 			br.close(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		licenceContent += "</html>";
+		
 		JLabel label = new JLabel(licenceContent);
+		/*JTextField label = new JTextField(licenceContent);
+		label.setEditable(false);*/
 		JPanel panel = new JPanel();
 		panel.add(label);
 		JScrollPane s = new JScrollPane(panel);
@@ -59,6 +66,15 @@ public class LicenceView extends InstallationView {
 		actions.add(buttons, BorderLayout.EAST);
 		
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				cancel();
+			}
+			
+		});
 		buttons.add(cancelButton);
 		
 		JButton nextButton = new JButton("Next");
@@ -72,6 +88,17 @@ public class LicenceView extends InstallationView {
 			
 		});
 		buttons.add(nextButton);
+	}
+	
+	public void cancel() {
+		int n = JOptionPane.showConfirmDialog(
+		    this.getController(),
+		    "Voulez-vous vraiment quitter l'installation?",
+		    "",
+		    JOptionPane.YES_NO_OPTION);
+		if(n == JOptionPane.YES_OPTION) {
+			this.getController().cancel();
+		}
 	}
 	
 	public void nextStep() {
