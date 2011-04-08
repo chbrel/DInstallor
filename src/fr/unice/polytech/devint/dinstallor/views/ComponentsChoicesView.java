@@ -249,12 +249,14 @@ public class ComponentsChoicesView  extends InstallationView {
 			}
 		}
 		
-		for(Game g : selectedGames) {
+/*		for(Game g : selectedGames) {
 			System.out.println(g.getTitle() + " : " + g.getShortDescription());
 			System.out.println("-------");
 		}
 		
 		System.out.println("####");
+*/
+		this.getController().setGamesToInstall(selectedGames);
 		
 		this.getController().nextStep();
 	}

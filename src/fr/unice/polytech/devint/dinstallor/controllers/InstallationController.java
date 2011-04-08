@@ -16,9 +16,11 @@ public class InstallationController extends JFrame {
 	private LicenceView lv;
 	private ConfigView cv;
 	private ComponentsChoicesView ccv;
+	private InstallingView iv;
 	
 	
 	private String installFolder;
+	private ArrayList<Game> toInstall;
 	
 	public InstallationController() {
 		super("View Manager");
@@ -38,6 +40,8 @@ public class InstallationController extends JFrame {
 		
 		this.cv = new ConfigView(this, defaultInstallFolder);
 		this.ccv = new ComponentsChoicesView(this);
+		
+		this.iv = new InstallingView(this);
 		
 		this.init();
 	}
@@ -75,9 +79,18 @@ public class InstallationController extends JFrame {
 					this.ccv.setGamesList(games);
 					this.setContentPane(this.ccv);
 					this.pack();
+				} else {
+					if(this.getContentPane().equals(this.ccv)) {
+						this.setContentPane(this.iv);
+						this.lunchCopy();
+					}
 				}
 			}
 		}
+	}
+	
+	public void lunchCopy() {
+		//TODO
 	}
 	
 	public String getInstallationFolder() {
@@ -86,6 +99,10 @@ public class InstallationController extends JFrame {
 	
 	public void setInstallationFolder(String installFolder) {
 		this.installFolder = installFolder;
+	}
+	
+	public void setGamesToInstall(ArrayList<Game> toInstall) {
+		this.toInstall = toInstall;
 	}
 	
 	public void cancel() {
