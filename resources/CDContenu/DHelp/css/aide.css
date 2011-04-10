@@ -1,0 +1,16 @@
+.clear {
+	clear:both;	
+}
+
+#listjeux {
+	float:left;
+	width: 18%;
+	border: 1px solid black;
+}
+
+#aidejeu {
+	float:right;
+	width: 78%;
+	border: 1px solid black;
+	margin-top: 16px;
+}

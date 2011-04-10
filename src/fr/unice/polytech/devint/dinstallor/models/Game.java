@@ -13,11 +13,22 @@ public class Game {
     private ArrayList<String> notes;
     private String gamePlay;
     private String gameRules;
+    
+    private File gameRep;
 
     public Game(int annee, ArrayList<GameCategory> gameCategories,
             String shortDescription, Public publicStyle, String title,
             ArrayList<String> authors, ArrayList<String> notes,
             String gamePlay, String gameRules) {
+    	this(annee, gameCategories, shortDescription, publicStyle, title,
+                authors, notes,
+                gamePlay, gameRules, null);
+    }
+    
+    public Game(int annee, ArrayList<GameCategory> gameCategories,
+            String shortDescription, Public publicStyle, String title,
+            ArrayList<String> authors, ArrayList<String> notes,
+            String gamePlay, String gameRules, File gameRep) {
         this.annee = annee;
         this.authors = authors;
         this.gameCategories = gameCategories;
@@ -28,6 +39,8 @@ public class Game {
         this.gamePlay = gamePlay;
         this.gameRules = gameRules;
         this.shortDescription = shortDescription;
+        
+        this.gameRep = gameRep;
     }
     
     public static ArrayList<Game> getAll(String gameFolder) {
@@ -46,7 +59,11 @@ public class Game {
     		File game = new File( gameFolder + File.separator + dirContent[i] ); 
     		
     		if(game.isDirectory()) {
-    			games.add(Parsor.parse(gameFolder + File.separator + dirContent[i] + File.separator + "doc" + File.separator + "infos.xml"));
+    			Game newGame = Parsor.parse(gameFolder + File.separator + dirContent[i] + File.separator + "doc" + File.separator + "infos.xml");
+    			if(newGame != null) {
+    				newGame.setGameRep(game);
+    			}
+    			games.add(newGame);
     		}
     	}
     	
@@ -87,6 +104,14 @@ public class Game {
 
     public String getGameRules() {
         return gameRules;
+    }
+    
+    public void setGameRep(File gameRep) {
+    	this.gameRep = gameRep;
+    }
+    
+    public File getGameRep() {
+    	return this.gameRep;
     }
 
     public String toString() {

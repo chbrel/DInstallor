@@ -17,6 +17,7 @@ import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
 public class InstallingView extends InstallationView {
 
 	private JLabel copyingContent;
+	private String copyingLogs;
 	
 	public InstallingView(InstallationController ic) {
 		super(ic);
@@ -30,11 +31,12 @@ public class InstallingView extends InstallationView {
 		this.add(welcomeContent, BorderLayout.CENTER);
 		
 		this.copyingContent = new JLabel("");
+		this.copyingLogs = "";
 		
 		JPanel panel = new JPanel();
 		panel.add(copyingContent);
 		JScrollPane s = new JScrollPane(panel);
-						s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.add(s, BorderLayout.CENTER);
 		
 		
@@ -72,7 +74,9 @@ public class InstallingView extends InstallationView {
 	}
 	
 	public void concat(String content) {
-		this.copyingContent.setText(this.copyingContent.getText() + "\n" + content);
+		this.copyingLogs += "<br/>" + content;
+		this.copyingContent.setText("<html>" + this.copyingLogs + "</html>");
+		this.validate();
 	}
 	
 	public void cancel() {
