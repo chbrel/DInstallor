@@ -3,12 +3,16 @@ package fr.unice.polytech.devint.dinstallor.views;
 import it.cnr.imaa.essi.lablib.gui.checkboxtree.*;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,6 +27,7 @@ import javax.swing.tree.TreePath;
 import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
 import fr.unice.polytech.devint.dinstallor.models.Game;
 import fr.unice.polytech.devint.dinstallor.models.GameCategory;
+import fr.unice.polytech.devint.dinstallor.models.Picture;
 
 @SuppressWarnings("serial")
 public class ComponentsChoicesView  extends InstallationView {
@@ -42,13 +47,33 @@ public class ComponentsChoicesView  extends InstallationView {
 		
 		this.setLayout(new BorderLayout());
 		
-		JLabel title = new JLabel("Choix des composants à installer");
-		this.add(title, BorderLayout.NORTH);
+		JPanel headPanel = new JPanel();
+		headPanel.setLayout(new BorderLayout());
+		
+		headPanel.add((new Picture("." + File.separator + "resources" + File.separator + "logo_devint.png")).getJLabel(), BorderLayout.WEST);
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.X_AXIS));
+		
+		titlePanel.add(Box.createHorizontalGlue());
+		
+		JLabel title = new JLabel("Choix des projets √† installer");
+		title.setFont(title.getFont().deriveFont(Font.BOLD));
+		title.setFont(title.getFont().deriveFont(Float.parseFloat("25")));
+		titlePanel.add(title);
+		
+		titlePanel.add(Box.createHorizontalGlue());
+		
+		
+		headPanel.add(titlePanel, BorderLayout.CENTER);
+		
+		this.add(headPanel, BorderLayout.NORTH);
 		
 		
 //		this.gamesList = new JComboBox();
-		this.add(this.createJCheckBoxTree());
-		
+		JPanel jTreeCheckBox = this.createJCheckBoxTree();
+		jTreeCheckBox.setBackground(Color.WHITE);
+		this.add(jTreeCheckBox);
 		
 		
 		JPanel actions = new JPanel();
@@ -59,7 +84,7 @@ public class ComponentsChoicesView  extends InstallationView {
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		actions.add(buttons, BorderLayout.EAST);
 		
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton("Annuler");
 		cancelButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -70,7 +95,7 @@ public class ComponentsChoicesView  extends InstallationView {
 		});
 		buttons.add(cancelButton);
 		
-		JButton nextButton = new JButton("Next");
+		JButton nextButton = new JButton("Suivant");
 		nextButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -92,15 +117,15 @@ public class ComponentsChoicesView  extends InstallationView {
 		    checkBoxPane.setLayout(new BorderLayout());
 		    
 		    this.sortedChoices = new JComboBox(); 
-		    this.sortedChoices.addItem("Par Année");
-		    this.sortedChoices.addItem("Par Catégorie");
+		    this.sortedChoices.addItem("Par Ann√©e");
+		    this.sortedChoices.addItem("Par Cat√©gorie");
 		    
 		    this.sortedChoices.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					if(((String) ComponentsChoicesView.this.sortedChoices.getSelectedItem()).equals("Par Année")) {
+					if(((String) ComponentsChoicesView.this.sortedChoices.getSelectedItem()).equals("Par Ann√©e")) {
 						if(!ComponentsChoicesView.this.dateDisplay) {
 							ComponentsChoicesView.this.dateDisplay = true;
 							ComponentsChoicesView.this.updateCheckBoxTree();

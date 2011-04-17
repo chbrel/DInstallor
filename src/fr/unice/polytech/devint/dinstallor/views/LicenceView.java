@@ -1,6 +1,8 @@
 package fr.unice.polytech.devint.dinstallor.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -9,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
+import fr.unice.polytech.devint.dinstallor.models.Picture;
 
 public class LicenceView extends InstallationView {
 
@@ -27,11 +31,34 @@ public class LicenceView extends InstallationView {
 		
 		this.setLayout(new BorderLayout());
 		
+		JPanel headPanel = new JPanel();
+		headPanel.setLayout(new BorderLayout());
+		
+		headPanel.add((new Picture("." + File.separator + "resources" + File.separator + "logo_devint.png")).getJLabel(), BorderLayout.WEST);
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.X_AXIS));
+		
+		titlePanel.add(Box.createHorizontalGlue());
+		
 		JLabel title = new JLabel("Licence");
-		this.add(title, BorderLayout.NORTH);
+		title.setFont(title.getFont().deriveFont(Font.BOLD));
+		title.setFont(title.getFont().deriveFont(Float.parseFloat("25")));
+		titlePanel.add(title);
+		
+		titlePanel.add(Box.createHorizontalGlue());
+		
+		
+		headPanel.add(titlePanel, BorderLayout.CENTER);
+		
+		this.add(headPanel, BorderLayout.NORTH);
+		
+		
+		JPanel licencePanel = new JPanel();
+		licencePanel.setBackground(Color.WHITE);
 		
 		String licenceContent = "<html>";
-		String licenceFile ="." + File.separator + "licence.txt";
+		String licenceFile = "." + File.separator + "resources" + File.separator + "licence.txt";
 			
 		try {
 			InputStream ips=new FileInputStream(licenceFile); 
@@ -51,10 +78,18 @@ public class LicenceView extends InstallationView {
 		JLabel label = new JLabel(licenceContent);
 		/*JTextField label = new JTextField(licenceContent);
 		label.setEditable(false);*/
-		JPanel panel = new JPanel();
-		panel.add(label);
-		JScrollPane s = new JScrollPane(panel);
-						s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		JPanel panel = new JPanel();
+//		panel.add(label);
+
+		licencePanel.add(label);
+		
+//		JScrollPane s = new JScrollPane(panel);
+//		s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		JScrollPane s = new JScrollPane(licencePanel);
+		s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+//		licencePanel.add(s);
 		this.add(s, BorderLayout.CENTER);
 		
 		JPanel actions = new JPanel();
@@ -65,7 +100,7 @@ public class LicenceView extends InstallationView {
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		actions.add(buttons, BorderLayout.EAST);
 		
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton("Annuler");
 		cancelButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -77,7 +112,7 @@ public class LicenceView extends InstallationView {
 		});
 		buttons.add(cancelButton);
 		
-		JButton nextButton = new JButton("Next");
+		JButton nextButton = new JButton("Suivant");
 		nextButton.addActionListener(new ActionListener() {
 
 			@Override

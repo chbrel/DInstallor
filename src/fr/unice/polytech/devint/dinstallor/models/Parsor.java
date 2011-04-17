@@ -47,6 +47,8 @@ public class Parsor {
                 return null;
             }
 
+            String age = xmlRoot.getChildText("age");
+            
             String title = xmlRoot.getChildText("title");
 
             ArrayList<String> authors = new ArrayList<String>();
@@ -63,7 +65,7 @@ public class Parsor {
 
             String gamerules = xmlRoot.getChildText("gamerules");
 
-            return new Game(annee, categories, shortDescription, dpublic, title,
+            return new Game(annee, categories, shortDescription, dpublic, age, title,
                     authors, notes, gameplay, gamerules);
 
         } catch (JDOMException e) {

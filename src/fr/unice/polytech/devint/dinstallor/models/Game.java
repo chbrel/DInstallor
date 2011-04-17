@@ -8,6 +8,7 @@ public class Game {
     private ArrayList<GameCategory> gameCategories;
     private String shortDescription;
     private Public publicStyle;
+    private String age;
     private String title;
     private ArrayList<String> authors;
     private ArrayList<String> notes;
@@ -17,22 +18,23 @@ public class Game {
     private File gameRep;
 
     public Game(int annee, ArrayList<GameCategory> gameCategories,
-            String shortDescription, Public publicStyle, String title,
+            String shortDescription, Public publicStyle, String age, String title,
             ArrayList<String> authors, ArrayList<String> notes,
             String gamePlay, String gameRules) {
-    	this(annee, gameCategories, shortDescription, publicStyle, title,
+    	this(annee, gameCategories, shortDescription, publicStyle, age, title,
                 authors, notes,
                 gamePlay, gameRules, null);
     }
     
     public Game(int annee, ArrayList<GameCategory> gameCategories,
-            String shortDescription, Public publicStyle, String title,
+            String shortDescription, Public publicStyle, String age, String title,
             ArrayList<String> authors, ArrayList<String> notes,
             String gamePlay, String gameRules, File gameRep) {
         this.annee = annee;
         this.authors = authors;
         this.gameCategories = gameCategories;
         this.publicStyle = publicStyle;
+        this.age = age;
         this.title = title;
         this.authors = authors;
         this.notes = notes;
@@ -84,6 +86,10 @@ public class Game {
 
     public Public getPublicStyle() {
         return publicStyle;
+    }
+    
+    public String getAge() {
+        return age;
     }
 
     public String getTitle() {

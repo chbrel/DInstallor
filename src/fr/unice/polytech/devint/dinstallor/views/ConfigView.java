@@ -1,10 +1,14 @@
 package fr.unice.polytech.devint.dinstallor.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
+import fr.unice.polytech.devint.dinstallor.models.Picture;
 
 public class ConfigView extends InstallationView {
 	
@@ -27,21 +32,53 @@ public class ConfigView extends InstallationView {
 		
 		this.setLayout(new BorderLayout());
 		
+		JPanel headPanel = new JPanel();
+		headPanel.setLayout(new BorderLayout());
+		
+		headPanel.add((new Picture("." + File.separator + "resources" + File.separator + "logo_devint.png")).getJLabel(), BorderLayout.WEST);
+		
+		JPanel titlePanel = new JPanel();
+		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.X_AXIS));
+		
+		titlePanel.add(Box.createHorizontalGlue());
+		
 		JLabel title = new JLabel("Configuration de l'installation");
-		this.add(title, BorderLayout.NORTH);
+		title.setFont(title.getFont().deriveFont(Font.BOLD));
+		title.setFont(title.getFont().deriveFont(Float.parseFloat("25")));
+		titlePanel.add(title);
+		
+		titlePanel.add(Box.createHorizontalGlue());
+		
+		
+		headPanel.add(titlePanel, BorderLayout.CENTER);
+		
+		this.add(headPanel, BorderLayout.NORTH);
+		
+		
 		
 		JPanel configPanel = new JPanel();
-		configPanel.setLayout(new BoxLayout(configPanel, BoxLayout.Y_AXIS));
+		configPanel.setLayout(new BorderLayout());
+		configPanel.setBackground(Color.WHITE);
 		this.add(configPanel);
 		
 		JPanel installFolderPanel = new JPanel();
-		installFolderPanel.setLayout(new BoxLayout(installFolderPanel, BoxLayout.Y_AXIS));
-		configPanel.add(installFolderPanel);
+		installFolderPanel.setBackground(Color.WHITE);
+		installFolderPanel.setLayout(new BoxLayout(installFolderPanel, BoxLayout.X_AXIS));
+		configPanel.add(installFolderPanel, BorderLayout.CENTER);
 		
 		JLabel installFolderLabel =  new JLabel("Dossier d'installation:");
 		installFolderPanel.add(installFolderLabel);
 		this.installFolderInfo = new JTextField(this.defaultInstallationFolder);
+		Dimension d = new Dimension(800, 50);
+		this.installFolderInfo.setPreferredSize(d);
+		this.installFolderInfo.setSize(d);
+		this.installFolderInfo.setMaximumSize(d);
+		this.installFolderInfo.setMinimumSize(d);
+		
 		installFolderPanel.add(installFolderInfo);
+		
+//		configPanel.add(Box.createVerticalGlue());
+		
 		
 		JPanel actions = new JPanel();
 		actions.setLayout(new BorderLayout());
@@ -51,7 +88,7 @@ public class ConfigView extends InstallationView {
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		actions.add(buttons, BorderLayout.EAST);
 		
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = new JButton("Annuler");
 		cancelButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -63,7 +100,7 @@ public class ConfigView extends InstallationView {
 		});
 		buttons.add(cancelButton);
 		
-		JButton nextButton = new JButton("Next");
+		JButton nextButton = new JButton("Suivant");
 		nextButton.addActionListener(new ActionListener() {
 
 			@Override
