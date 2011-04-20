@@ -2,6 +2,7 @@ package fr.unice.polytech.devint.dinstallor.views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +35,7 @@ public class EndView extends InstallationView {
 		
 		titlePanel.add(Box.createHorizontalGlue());
 		
-		JLabel title = new JLabel("Installation du CD DeViNT " + ic.getYear() + " terminée!");
+		JLabel title = new JLabel("L'installation du CD DeViNT " + ic.getYear() + " est terminée!");
 		title.setFont(title.getFont().deriveFont(Font.BOLD));
 		title.setFont(title.getFont().deriveFont(Float.parseFloat("25")));
 		titlePanel.add(title);
@@ -46,12 +47,30 @@ public class EndView extends InstallationView {
 		
 		this.add(headPanel, BorderLayout.NORTH);
 		
-		JPanel endPanel = new JPanel();
+		/*JPanel endPanel = new JPanel();
 		endPanel.setBackground(Color.WHITE);
 		
 		JLabel endContent = new JLabel("Merci d'avoir installé les projets du CD DeViNT 2011!");
 		
 		endPanel.add(endContent);
+		this.add(endPanel, BorderLayout.CENTER);*/
+		
+		JPanel endPanel = new JPanel();
+		endPanel.setBackground(Color.WHITE);
+		
+		String endText = "<html>";
+		endText += "<p>Les projets sélectionnés ont été installés, et une icône de lancement intitulée \"Jeux DeViNT\" a été ajoutée sur le bureau.</p><br/>";
+		endText += "<p>La synthèse vocale SIVOX qui a été installée pour les projets Devint utilise le moteur et les voix françaises du projet MBROLA de l'Université Polytechnique de Mons en Belgique.</p><br/>";
+		endText += "<p>Une aide sur les projets a été installée, ainsi qu'une icône \"Aide DeViNT\" placée sur le bureau pour y accéder.</p><br/>";
+		endText += "<p>Vous pourrez dans le futur rajouter de nouveaux projets tirés du CD, ou les désinstaller tous en une fois.</p><br/><br/>";
+		endText += "<p>A vous de jouer maintenant !</p><br/><br/>";
+		endText += "<p>Cliquez sur le bouton 'Quitter' pour sortir de l'installation.</p>";
+		endText += "</html>";
+		
+		JLabel endContent = new JLabel(endText);
+		endContent.setPreferredSize(new Dimension(900,718));
+		endPanel.add(endContent);
+		
 		this.add(endPanel, BorderLayout.CENTER);
 		
 		JPanel actions = new JPanel();

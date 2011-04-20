@@ -2,6 +2,7 @@ package fr.unice.polytech.devint.dinstallor.views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +42,7 @@ public class LicenceView extends InstallationView {
 		
 		titlePanel.add(Box.createHorizontalGlue());
 		
-		JLabel title = new JLabel("Licence");
+		JLabel title = new JLabel("Les projets DeViNT sont sous licence !");
 		title.setFont(title.getFont().deriveFont(Font.BOLD));
 		title.setFont(title.getFont().deriveFont(Float.parseFloat("25")));
 		titlePanel.add(title);
@@ -54,7 +55,7 @@ public class LicenceView extends InstallationView {
 		this.add(headPanel, BorderLayout.NORTH);
 		
 		
-		JPanel licencePanel = new JPanel();
+		/*JPanel licencePanel = new JPanel();
 		licencePanel.setBackground(Color.WHITE);
 		
 		String licenceContent = "<html>";
@@ -76,8 +77,8 @@ public class LicenceView extends InstallationView {
 		licenceContent += "</html>";
 		
 		JLabel label = new JLabel(licenceContent);
-		/*JTextField label = new JTextField(licenceContent);
-		label.setEditable(false);*/
+		JTextField label = new JTextField(licenceContent);
+		label.setEditable(false);
 //		JPanel panel = new JPanel();
 //		panel.add(label);
 
@@ -87,10 +88,31 @@ public class LicenceView extends InstallationView {
 //		s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		JScrollPane s = new JScrollPane(licencePanel);
-		s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		s.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);*/
 		
 //		licencePanel.add(s);
-		this.add(s, BorderLayout.CENTER);
+		
+		JPanel licencePanel = new JPanel();
+		licencePanel.setBackground(Color.WHITE);
+		
+		String licenceText = "<html>";
+		licenceText += "<p>Ce CD regroupe un ensemble de projets Devint, projets logiciels développés à l'école Polytech'Nice-Sophia, dans le cadre de la journée DeViNT ( cf. <a href=\"http://devint.polytech.unice.fr\">http://devint.polytech.unice.fr</a>).</p><br/>";
+		licenceText += "<p>Les auteurs de ces projets sont les enseignants et les élèves du département Sciences Informatiques.</p><br/>";
+		licenceText += "<p>Les projets DeViNT sont distribués gratuitement avec leurs sources, sous licence LGPL.</p><br/>";
+		licenceText += "<p>Le projet VocalyzeSIVOX utilise le logiciel MBROLA de l'Université Polytechnique de Mons (Belgique) ainsi que les sept voix françaises de MBROLA qui sont soumis à la licence MBROLA, voir <a href=\"http://tcts.fpms.ac.be/synthesis/mbrola/mbrlicen.html\">http://tcts.fpms.ac.be/synthesis/mbrola/mbrlicen.html</a>.</p><br/>";
+		licenceText += "<p>Les projets Devint n'enfreignent pas à notre connaissance les règles de copyright.</p><br/>";
+		licenceText += "<p>Cependant, merci de nous signaler tout manquement éventuel à corriger.</p><br/>";
+		licenceText += "<p>Vous pouvez modifier les projets DeViNT, les utiliser et les redistribuer sous les termes de la licence MBROLA et de la licence LGPL.</p><br/><br/>";
+		licenceText += "<p>Cliquez sur le bouton 'Suivant' pour continuer l'installation.</p>";
+		licenceText += "</html>";
+		
+		JLabel licenceContent = new JLabel(licenceText);
+		licenceContent.setPreferredSize(new Dimension(900,718));
+		licencePanel.add(licenceContent);
+		
+		this.add(licencePanel, BorderLayout.CENTER);
+		
+		//this.add(s, BorderLayout.CENTER);
 		
 		JPanel actions = new JPanel();
 		actions.setLayout(new BorderLayout());
