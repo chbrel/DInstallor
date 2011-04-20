@@ -28,6 +28,22 @@ public class OSValidator{
 	    return (os.indexOf( "win" ) >= 0); 
  
 	}
+	
+	public static boolean isWindowsXP(){
+		 
+		String os = System.getProperty("os.name").toLowerCase();
+		//windows XP
+	    return (os.indexOf( "win" ) >= 0) && (os.indexOf( "XP" ) >= 0); 
+ 
+	}
+	
+	public static boolean isWindowsSeven(){
+		 
+		String os = System.getProperty("os.name").toLowerCase();
+		//windows seven
+	    return (os.indexOf( "win" ) >= 0) && (os.indexOf( "7" ) >= 0); 
+ 
+	}
  
 	public static boolean isMac(){
  

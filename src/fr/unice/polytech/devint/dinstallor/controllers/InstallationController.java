@@ -59,6 +59,9 @@ public class InstallationController extends JFrame {
 		
 		if(OSValidator.isWindows()) {
 			defaultInstallFolder = "C:" + File.separator + "Program Files" + File.separator + "DeViNT" + File.separator + "DeViNT" + this.year + File.separator;
+			if(OSValidator.isWindowsSeven()) {
+				defaultInstallFolder = System.getProperty("user.home") + File.separator + "DeViNT" + File.separator + "DeViNT" + this.year + File.separator;
+			}
 		} else if(OSValidator.isUnix()) {
 			defaultInstallFolder = File.separator + "usr" + File.separator + "DeViNT" + File.separator + "DeViNT" + this.year + File.separator;
 		} else if(OSValidator.isMac()) {
