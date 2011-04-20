@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr"> 
+  <head> 
+    <title>CD DeViNT: Aide</title> 
+    <link rel="shortcut icon" href="resources/aide.ico" type="image/x-icon" /> 
+    <link rel="icon" href="resources/aide.ico" type="image/x-icon" /> 
+    <style type="text/css" media="all">@import "css/base.css";</style>
+    <style type="text/css" media="all">@import "css/aide.css";</style>
+  </head> 
+ 
+  <body> 
+    <div id="banner"> 
+      <h1 id="title">
+	<a href="index.html"><img height="60" alt="DeViNT" id="logo" src="resources/logoCDDeViNT.png" /></a>
+	Aide du CD DeViNT</h1> 
+    </div> 
+      <ul class="navbar" id="menu"> 
+    <li><span class="hideme"><a href="#skip" accesskey="s" title="Passer le menu de navigation pour aller à la partie principale du document">Passer la Navigation</a> |</span> 
+    <a href="index.html" accesskey="h" title="CD DeViNT: Aide"><strong>Accueil</strong></a></li> 
+    <li><a href="jeux.html" title="Aide sur les Jeux Installés">Jeux Installés</a></li> 
+    <li><a href="installation.html" title="Installation du CD">Installation Du CD</a></li> 
+    <li><a href="api.html" title="Comment créer son propre projet DeViNT">Créer Son Projet</a></li> 
+    <li><a href="os.html" title="Jeux et Système D'Exploitation">Systèmes D'Exploitation</a></li> 
+    <li><a href="faq.html" title="Foire aux questions">Foire Aux Questions</a></li> 
+    <li><a href="contact.html" title="Nous Contacter">Nous Contacter</a></li>
+</ul>
+ 
+ 
+    <div id="main"> 
+      <a name="skip"></a>
+<h3>Comment écrire son propre projet DeViNT</h3>
+<p>Tous les projets DeViNT doivent adopter la structure imposée  suivante, y compris Listor et VocalyzeSIVOX. Cette structure est constituée de  quatre sous-dossiers dans le dossier qui contient le projet&nbsp;:</p>
+<ul>
+  <li>Le dossier bin contient les exécutables du projet, ainsi  qu’un fichier script exécutable nommé execution.bat et capable de lancer  l’exécution du projet.</li>
+  <li>Le dossier doc contient un fichier intitulé manuel.html  qui fournit l’aide du projet en plusieurs  rubriques&nbsp;: public visé, notes d’utilisation, comment jouer, auteurs,  version, … il contient également des fichiers textes utilisés par  l’installateur du CD pour commenter et classifier les projets DeViNT.</li>
+  <li>Le dossier ressources contient les sons et les images  utilisés par le projet, les données textes, éventuellement les librairies  utilisées qui peuvent être placées dans bin également, et les paramètres de la  synthèse vocale, dans le fichier texte si_vox_ihm.conf, les règles de  prononciation dans le dossier donneesmbrola/rules, les fichiers phonèmes et  wave utilisés par VocalyzeSIVOX pour synthétiser la voix.<br />
+    Noter que les voix et le moteur de synthèse se trouvent  respectivement dans le dossier VocalyzeSIVOX/ressources, ce sont les fichiers  fr1 à fr7 pour les voix, et VocalyzeSIVOX\bin\SIVOX.jar.<br />
+  </li>
+  <li>Le dossier src contient tous les sources du projet ainsi que  le script compilation.bat dont l’exécution doit compiler les sources et placer  l’exécutable dans le dossier bin.</li>
+</ul>
+<p>En conséquence, pour exécuter directement un projet, par  exemple RapidMot, il suffit d’exécuter le script RapidMot\bin\execution.bat.</p>
+<p>Si ce projet utilise la synthèse vocale, on doit placer au  même niveau que le dossier RapidMot le dossier VocalyzeSIVOX qui réalisera la  conversion du texte en voix dans un fichier audio.</p>
+<p>Egalement, si on souhaite utiliser le menu accessible de  Listor pour lancer un projet, il suffit que le projet Listor soit placé au même  niveau que le projet et que le script execution.bat soit bien présent dans bin.</p>
+<p>Pour créer un projet DeViNT, il suffit de respecter et ce  contenu, et les règles d’interface suivantes :</p>
+<h3>Règles d’interface et utilisation du clavier</h3>
+<p>La structure et les règles d’interface des projets DeViNT sont  implémentées dans le projet Modele_de_jeu fourni sur le CD&nbsp;dans la rubrique 'atelier'; ce projet ne  contient pas de jeu, mais donne un exemple d’application des règles imposées  aux projets DeViNT pour l’interface et l’utilisation du clavier et peut  constituer le point de départ d’un nouveau projet DeViNT.</p>
+<p>Noter également le projet BaseDeViNT plus sophistiqué que  Modele_de_jeu car il  fournit en plus un  moyen de personnaliser l’interface, en termes de taille de caractères, couleurs  de premier plan et d’arrière plan, etc … avec le bouton Configuration   Profil. Il s’agit également d’un projet vide qui illustre simplement les règles  d’interface des projets DeViNT. En résumé&nbsp;:</p>
+<h4>Menus&nbsp;: </h4>
+<p>ils doivent imiter le menu accessible de Listor, sa disposition  verticale, ses couleurs, ses polices, et l’utilisation du clavier</p>
+<h4>Utilisation du clavier</h4>
+<ul>
+  <li>Echap termine  les niveaux, et au dernier niveau termine le jeu</li>
+  <li>Les flèches directionnelles permettent de balayer les menus  en boucle </li>
+  <li>Enter valide les  choix</li>
+  <li>F1 donne  l’objectif du jeu, utiliser F2, F3, F4,  … pour séparer au besoin les infos sur le jeu, les commandes clavier,les  scores, les règles, les indices, les crédits, …</li>
+  <li>Espace, Ctrl, Shift,  flèches directionnelles, pavé numérique, touches alphanumériques … selon les  besoins.</li>
+</ul>
+<h4>Utilisation de la synthèse vocale</h4>
+<ul>
+  <li>Annoncer à voix haute chaque évolution du jeu, par exemple
+    <ul>
+      <li>«&nbsp;bienvenue dans Tétris,  taper F1 pour savoir comment jouer&nbsp;»</li>
+      <li>Ou «&nbsp;nouvelle partie, pour jouer, tape Entrée&nbsp;»</li>
+      <li>Ou «&nbsp;voici les scores, F2 pour répéter&nbsp;»</li>
+    </ul>
+  </li>
+  <li>Une commande du clavier doit répéter ce message, F1 par  exemple</li>
+  <li>Le jeu doit rester à l’écoute du clavier et réagir à toute  action du joueur</li>
+  <li>La voix doit être interrompue par toute action du  joueur&nbsp;: clavier, souris, tapis</li>
+  <li>Le jeu doit annoncer à voix haute les commandes qu’il détecte
+    <ul>
+      <li>Par exemple, si la touche ‘A’ est pressée, «&nbsp;A&nbsp;:  touche inactive&nbsp;»</li>
+      <li>Ou si Entrée est  utilisée, «&nbsp;Entrée&nbsp;:  débutons une nouvelle partie&nbsp;»</li>
+      <li>Ou encore «&nbsp;F3&nbsp;: voici les indices récoltés&nbsp;»</li>
+      <li>On suggère de faire dire par la synthèse les touches du  clavier utilisées</li>
+    </ul>
+  </li>
+</ul>
+<h3>Créer un nouveau projet DeViNT</h3>
+<p>Il faut respecter les règles d’interface et les règles de  structuration expliquées ci-dessus.</p>
+<p> On pourra construire le nouveau projet en partant du projet  Modele_de_jeu fourni sur le CD, dans le sous-dossier Modele_de_jeu du dossier  LesLogiciels.</p>
+<p>On placera au même niveau les dossiers jre et lib copiés du CD,  et on développera en java 32 bits par défaut.</p>
+<p>Pour utiliser la synthèse vocale, le dossier VocalyzeSIVOX  devra être copié lui aussi et devra être placé au même niveau que le dossier  Modele_de_jeu.</p>
+<p>Si le dossier Listor est placé également au même niveau que  Modele_de_jeu, VocalyzeSIVOX, jre et lib, le menu obtenu en exécutant Listor  doit permettre d’exécuter le nouveau projet, c’est un test de conformité du  nouveau projet et un test d’intégration possible sur le CD DeViNT.</p>
+<h3>Utiliser la synthèse vocale du CD</h3>
+<h4>Quelques explications</h4>
+<p>La synthèse vocale SIVOX est libre  et gratuite, elle a été développée par les élèves et les enseignants du  département Sciences Informatiques, sous la forme de projets, et grâce au  projet MBROLA de l’Université Polytechnique de Mons en Belgique. A ce titre, l’utilisation  de SIVOX est soumise à la licence MBROLA  (cf. <a href="http://tcts.fpms.ac.be/synthesis/mbrola.html">http://tcts.fpms.ac.be/synthesis/mbrola.html</a>).</p>
+<p> SIVOX est installée dans le  dossier VocalyzeSIVOX, au même niveau d’arborescence que les jeux DeViNT. Si sa  fonction première est de fournir des voix de synthèse aux projets, en incluant  le jar SIVOX.jar du dossier VocalyzeSIVOX/bin, cf. ci-dessus, VocalyzeSIVOX est  également un projet DeViNT à part entière qui permet d'expérimenter la synthèse vocale, de choisir une voix parmi les sept voix françaises de Mbrola, une prosodie parmi les trois disponibles, d'éditer la prosodie avec la souris, et même de chanter.</p>
+<h4>Utiliser  la synthèse vocale SIVOX sous Windows</h4>
+<p>Afin  d’évaluer la synthèse vocale, il est possible de saisir des textes, de les  faire lire avec plusieurs voix, plusieurs intonations, ou encore d’ajuster  l’intonation textuellement ou graphiquement. Pour cela, sélectionner  VocalyzeSIVOX dans le menu de lancement, une fenêtre s’ouvre, et il faut&nbsp;:</p>
+<ol>
+  <li>définir un projet  et un auteur, dans le menu Fichier/Nouveau Projet</li>
+  <li>saisir un texte  dans la fenêtre Texte du projet en haut et à gauche</li>
+  <li>créer une fenêtre  d’intonation (bouton Prosodie/Ajouter une nouvelle prosodie)</li>
+  <li>choisir une  intonation ou prosodie parmi les trois possibles (Prosodie/Sélection de la  prosodie)</li>
+  <li>appliquer la  prosodie choisie au texte saisi  (bouton  Synchroniser) </li>
+  <li>choisir une voix  parmi les sept voix disponibles, bouton Configuration/Voix du mode sonore</li>
+  <li>le bouton Jouer/  Stop permet alors d’entendre le texte lu à voix haute par SIVOX</li>
+</ol>
+<p>La fenêtre en bas à gauche  contient la description textuelle de la prosodie à appliquer au texte à lire :  on trouve un phonème sur chaque ligne, avec sa durée et son intonation. <br />
+    <strong>o~    180   0   100    50   150</strong><br />
+  Par exemple, la ligne  ci-dessus stipule un phonème o~ (c'est-à-dire qu’on entend le son  «&nbsp;on&nbsp;») de durée 180 millisecondes, 0.18 secondes. La fréquence  fondamentale de la voix vaut 100 Hz au début du son (0%), puis devient 150 Hz à  50% de la durée, soit 90 millisecondes&nbsp;: entre ces deux points (ou pitch  patterns), la variation de la fréquence vocale est linéaire. Certaines informations  de cette fenêtre sont éditables, par exemple la durée et les informations de  fréquence. Les phonèmes sont tirés de l’alphabet phonétique SAMPA qui est utilisé  par  MBROLA.</p>
+
+<div align="left">
+  <table border="1" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>phonème</strong></p></td>
+      <td width="183" valign="top"><p><strong>par exemple</strong></p></td>
+      <td width="120" valign="top"><p align="center"><strong>phonème</strong></p></td>
+      <td width="234" valign="top"><p><strong>par exemple</strong></p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>i</strong></p></td>
+      <td width="183" valign="top"><p>idiot,    ami</p></td>
+      <td width="120" valign="top"><p align="center"><strong>H</strong></p></td>
+      <td width="234" valign="top"><p>huile, nuage </p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>e</strong></p></td>
+      <td width="183" valign="top"><p>ému,    été</p></td>
+      <td width="120" valign="top"><p align="center"><strong>p</strong></p></td>
+      <td width="234" valign="top"><p>patte, repas, cap </p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>E</strong></p></td>
+      <td width="183" valign="top"><p>perdu, maison</p></td>
+      <td width="120" valign="top"><p align="center"><strong>t</strong></p></td>
+      <td width="234" valign="top"><p>tête, net</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>A</strong></p></td>
+      <td width="183" valign="top"><p>alarme, patte</p></td>
+      <td width="120" valign="top"><p align="center"><strong>k</strong></p></td>
+      <td width="234" valign="top"><p>carte, écaille, bec</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>A</strong></p></td>
+      <td width="183" valign="top"><p>bâton, patte</p></td>
+      <td width="120" valign="top"><p align="center"><strong>b</strong></p></td>
+      <td width="234" valign="top"><p>bête, habile, robe</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>O</strong></p></td>
+      <td width="183" valign="top"><p>obstacle, corps</p></td>
+      <td width="120" valign="top"><p align="center"><strong>d</strong></p></td>
+      <td width="234" valign="top"><p>dire, rondeur, chaud</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>o</strong></p></td>
+      <td width="183" valign="top"><p>auditeur, beau</p></td>
+      <td width="120" valign="top"><p align="center"><strong>g</strong></p></td>
+      <td width="234" valign="top"><p>gauche, égal, bague</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>u</strong></p></td>
+      <td width="183" valign="top"><p>coupable, loup</p></td>
+      <td width="120" valign="top"><p align="center"><strong>f</strong></p></td>
+      <td width="234" valign="top"><p>feu, affiche, chef</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>y</strong></p></td>
+      <td width="183" valign="top"><p>punir, élu</p></td>
+      <td width="120" valign="top"><p align="center"><strong>s</strong></p></td>
+      <td width="234" valign="top"><p>soeur, assez, passe</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>2</strong></p></td>
+      <td width="183" valign="top"><p>creuser, deux</p></td>
+      <td width="120" valign="top"><p align="center"><strong>S</strong></p></td>
+      <td width="234" valign="top"><p>chanter, machine, poche</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>9</strong></p></td>
+      <td width="183" valign="top"><p>malheureux, peur</p></td>
+      <td width="120" valign="top"><p align="center"><strong>v</strong></p></td>
+      <td width="234" valign="top"><p>vent, inventer, rêve</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>@</strong></p></td>
+      <td width="183" valign="top"><p>petite, fortement</p></td>
+      <td width="120" valign="top"><p align="center"><strong>z</strong></p></td>
+      <td width="234" valign="top"><p>zéro, raisonner, rose</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>e~</strong></p></td>
+      <td width="183" valign="top"><p>peinture, matin</p></td>
+      <td width="120" valign="top"><p align="center"><strong>Z</strong></p></td>
+      <td width="234" valign="top"><p>jardin, manger, piège</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>a~</strong></p></td>
+      <td width="183" valign="top"><p>vantardise, temps</p></td>
+      <td width="120" valign="top"><p align="center"><strong>l</strong></p></td>
+      <td width="234" valign="top"><p>long, élire, bal</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>o~</strong></p></td>
+      <td width="183" valign="top"><p>rondeur, bon</p></td>
+      <td width="120" valign="top"><p align="center"><strong>R</strong></p></td>
+      <td width="234" valign="top"><p>rond, chariot, sentir</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>9~</strong></p></td>
+      <td width="183" valign="top"><p>lundi, brun</p></td>
+      <td width="120" valign="top"><p align="center"><strong>m</strong></p></td>
+      <td width="234" valign="top"><p>madame, aimer, pomme</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>j</strong></p></td>
+      <td width="183" valign="top"><p>piétiner, choyer</p></td>
+      <td width="120" valign="top"><p align="center"><strong>n</strong></p></td>
+      <td width="234" valign="top"><p>nous, punir, bonne</p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>w</strong></p></td>
+      <td width="183" valign="top"><p>quoi, fouine</p></td>
+      <td width="120" valign="top"><p align="center"><strong>N</strong></p></td>
+      <td width="234" valign="top"><p>ping,    pong </p></td>
+    </tr>
+    <tr>
+      <td width="75" valign="top"><p align="center"><strong>_</strong></p></td>
+      <td width="183" valign="top"><p>silence    marker </p></td>
+      <td width="120" valign="top"><p align="center"><strong>&nbsp;</strong></p></td>
+      <td width="234" valign="top"><p>&nbsp;</p></td>
+    </tr>
+  </table>
+</div>
+  <p>Le bouton Mode Sonore permet  de lire l’interface de la synthèse à voix haute.</p>
+  <p>La fenêtre intitulée Graphe de  Prosodie graphique en bas et à droite représente l’intonation et permet de la  modifier avec la souris. Il faut ensuite utiliser le bouton Synchroniser pour  en tenir compte.</p>
+    </div>
+  </body> 
+</html>
