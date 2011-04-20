@@ -281,7 +281,9 @@ public class ComponentsChoicesView  extends InstallationView {
 		System.out.println("####");
 */
 		this.getController().setGamesToInstall(selectedGames);
-		
+		ArrayList<Game> unselectedGames = this.games;
+		unselectedGames.removeAll(selectedGames);
+		this.getController().setGamesToUninstall(unselectedGames);
 		this.getController().nextStep();
 	}
 	

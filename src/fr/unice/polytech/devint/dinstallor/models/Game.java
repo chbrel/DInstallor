@@ -154,4 +154,16 @@ public class Game {
 
         return string;
     }
+    
+    public boolean equals(Object obj) {
+    	if (obj.getClass().equals(this.getClass())) {
+    		Game objGame = (Game) obj;
+    		return this.title.equals(objGame.getTitle());
+    	}
+		return false;
+    }
+    
+    public int hashCode() {
+    	return this.title.hashCode();
+    }
 }

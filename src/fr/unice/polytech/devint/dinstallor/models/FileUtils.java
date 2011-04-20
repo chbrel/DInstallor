@@ -81,5 +81,22 @@ public class FileUtils {
 		} else {
 			throw new FileNotFoundException(from.toString() + " does not exist" );
 		}
-	} 
+	}
+
+	/**
+	 * @author Christian Brel
+	 * @author Romaric Pighetti
+	 */
+	public static void rmDir(File dir) {
+		if (dir.isDirectory()) {
+			for (File f : dir.listFiles()) {
+				if (f.isDirectory()) {
+					rmDir(f);
+				} else {
+					f.delete();
+				}
+			}
+		}
+		dir.delete();
+	}
 }
