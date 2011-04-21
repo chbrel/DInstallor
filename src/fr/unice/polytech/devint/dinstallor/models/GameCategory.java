@@ -3,7 +3,14 @@ import java.util.HashMap;
 
 
 public enum GameCategory {
-    PLATEFORME("Plate-Forme"), REFLEXION("Reflexion"), DIVERS("Divers");
+    PLATEFORME("Plate-Forme"), REFLEXION("Réflexion"),
+    MULTIJEUX("Multi-jeux"), ROLE("Jeu de rôle"),
+    STRATEGIE("Stratégie"), ATELIER("Atelier DeViNT"),
+    ARCADE("Arcade"), REFLEXE("Réflexe"),
+    CONDUITE("Conduite"), DESSIN("Dessin"),
+    CONNAISSANCES("Connaissances"), LETTRES("Lettres"),
+    MEMOIRE("Mémoire"), MUSIQUE("Musique"),
+    RAPIDITE("Rapidité"), MOUVEMENT("Mouvement");
     
     // The categorie string.
     private String categorie;
