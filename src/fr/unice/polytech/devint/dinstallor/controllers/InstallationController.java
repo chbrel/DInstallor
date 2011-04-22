@@ -30,6 +30,7 @@ public class InstallationController extends JFrame {
 	private int year;
 	private String installFolder;
 	private ArrayList<Game> toInstall;
+	private ArrayList<Game> toUninstall;
 	
 	public InstallationController() {
 		super();
@@ -123,7 +124,7 @@ public class InstallationController extends JFrame {
 						
 						Thread t = new Thread() {
 							public void run() {
-								lunchCopy();
+								launchCopy();
 							}
 						};
 						
@@ -140,7 +141,33 @@ public class InstallationController extends JFrame {
 		}
 	}
 	
-	public void lunchCopy() {
+	public void launchUninstall() {
+		boolean uninstallAll = false;
+		ArrayList<Game> installedGames = Game.getAll(this.getInstallationFolder());
+		if (toInstall.size() == 0) {
+			uninstallAll = true;
+		}
+		
+		if (installedGames == null) {
+			return;
+		}
+		
+		for (Game game : installedGames) {
+			if ((toUninstall.contains(game) || uninstallAll) && game != null) {
+				FileUtils.rmDir(game.getGameRep());
+			}
+		}
+		
+		if (uninstallAll) {
+			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"lib"));
+			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"jre"));
+			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"VocalyzeSIVOX"));
+			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"Listor"));
+			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"DListor"));
+		}
+	}
+	
+	public void launchCopy() {
 		long startCopyTime = System.currentTimeMillis();
 		FileUtils.iv = this.iv;
 		
@@ -402,5 +429,10 @@ public class InstallationController extends JFrame {
 	
 	public void cancel() {
 		this.dispose();
+	}
+
+	public void setGamesToUninstall(ArrayList<Game> toUninstall) {
+		this.toUninstall = toUninstall;
+		
 	}
 }
