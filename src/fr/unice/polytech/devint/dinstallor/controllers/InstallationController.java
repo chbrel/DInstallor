@@ -1,3 +1,13 @@
+/**
+ * THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. 
+ * EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES 
+ * PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR 
+ * IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY 
+ * AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND 
+ * PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU 
+ * ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+ */
+
 package fr.unice.polytech.devint.dinstallor.controllers;
 
 import java.awt.Dimension;
@@ -122,8 +132,6 @@ public class InstallationController extends JFrame {
 						this.setContentPane(this.iv);
 						this.pack();
 						
-						launchUninstall();
-						
 						Thread t = new Thread() {
 							public void run() {
 								launchCopy();
@@ -156,100 +164,116 @@ public class InstallationController extends JFrame {
 		
 		for (Game game : installedGames) {
 			if ((toUninstall.contains(game) || uninstallAll) && game != null) {
+				iv.concat("Désinstallation de "+game.getTitle());
 				FileUtils.rmDir(game.getGameRep());
 			}
 		}
 		
+		iv.concat("Suppression des aides générées précédament.");
+		FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"Aide"));
+		
 		if (uninstallAll) {
+			iv.concat("Destruction du répertoire \"lib\" et de ses sous répertoires.");
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"lib"));
+			iv.concat("Destruction du répertoire \"jre\" et de ses sous répertoires.");
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"jre"));
+			iv.concat("Destruction du répertoire \"VocalyzeSIVOX\" et de ses sous répertoires.");
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"VocalyzeSIVOX"));
+			iv.concat("Destruction du répertoire \"Listor\" et de ses sous répertoires.");
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"Listor"));
+			iv.concat("Destruction du répertoire \"DListor\" et de ses sous répertoires.");
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"DListor"));
-			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"Aide"));
 		}
 	}
 	
 	public void launchCopy() {
+		long startCopyTime = System.currentTimeMillis();
+		FileUtils.iv = this.iv;
+		
+		launchUninstall();
+		
 		if (toInstall.size() != 0) {
-			long startCopyTime = System.currentTimeMillis();
-			FileUtils.iv = this.iv;
-			
 			File installDir =  new File(this.getInstallationFolder());
 			if(!installDir.exists()) {
 				installDir.mkdirs();
 			}
 			
 			/* Copie du bon répertoire Jre */
-			if(OSValidator.isWindows()) {
-				try {
-					iv.concat("Copie du répertoire \"jre\" et de ses sous-répertoires");
-					FileUtils.copy(new File("." + File.separator + "jre" + File.separator + "win"), new File(this.getInstallationFolder() + File.separator + "jre" + File.separator));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else if(OSValidator.isUnix()) {
-				try {
-					iv.concat("Copie du répertoire \"jre\" et de ses sous-répertoires");
-					FileUtils.copy(new File("." + File.separator + "jre" + File.separator + "linux"), new File(this.getInstallationFolder() + File.separator + "jre" + File.separator));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else if(OSValidator.isMac()) {
-				try {
-					iv.concat("Copie du répertoire \"jre\" et de ses sous-répertoires");
-					FileUtils.copy(new File("." + File.separator + "jre" + File.separator + "mac"), new File(this.getInstallationFolder() + File.separator + "jre" + File.separator));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			if (!new File(this.getInstallationFolder() + File.separator + "jre" + File.separator).exists()) {
+				if(OSValidator.isWindows()) {
+					try {
+						iv.concat("Copie du répertoire \"jre\" et de ses sous-répertoires");
+						FileUtils.copy(new File("." + File.separator + "jre" + File.separator + "win"), new File(this.getInstallationFolder() + File.separator + "jre" + File.separator));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else if(OSValidator.isUnix()) {
+					try {
+						iv.concat("Copie du répertoire \"jre\" et de ses sous-répertoires");
+						FileUtils.copy(new File("." + File.separator + "jre" + File.separator + "linux"), new File(this.getInstallationFolder() + File.separator + "jre" + File.separator));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else if(OSValidator.isMac()) {
+					try {
+						iv.concat("Copie du répertoire \"jre\" et de ses sous-répertoires");
+						FileUtils.copy(new File("." + File.separator + "jre" + File.separator + "mac"), new File(this.getInstallationFolder() + File.separator + "jre" + File.separator));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			
 			/* Copie du bon répertoire Lib */
-			if(OSValidator.isWindows()) {
-				try {
-					iv.concat("Copie du répertoire \"lib\" et de ses sous-répertoires");
-					FileUtils.copy(new File("." + File.separator + "lib" + File.separator + "win"), new File(this.getInstallationFolder() + File.separator + "lib" + File.separator));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else if(OSValidator.isUnix()) {
-				try {
-					iv.concat("Copie du répertoire \"lib\" et de ses sous-répertoires");
-					FileUtils.copy(new File("." + File.separator + "lib" + File.separator + "linux"), new File(this.getInstallationFolder() + File.separator + "lib" + File.separator));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else if(OSValidator.isMac()) {
-				try {
-					iv.concat("Copie du répertoire \"lib\" et de ses sous-répertoires");
-					FileUtils.copy(new File("." + File.separator + "lib" + File.separator + "mac"), new File(this.getInstallationFolder() + File.separator + "lib" + File.separator));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			if (!new File(this.getInstallationFolder() + File.separator + "lib" + File.separator).exists()) {
+				if(OSValidator.isWindows()) {
+					try {
+						iv.concat("Copie du répertoire \"lib\" et de ses sous-répertoires");
+						FileUtils.copy(new File("." + File.separator + "lib" + File.separator + "win"), new File(this.getInstallationFolder() + File.separator + "lib" + File.separator));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else if(OSValidator.isUnix()) {
+					try {
+						iv.concat("Copie du répertoire \"lib\" et de ses sous-répertoires");
+						FileUtils.copy(new File("." + File.separator + "lib" + File.separator + "linux"), new File(this.getInstallationFolder() + File.separator + "lib" + File.separator));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else if(OSValidator.isMac()) {
+					try {
+						iv.concat("Copie du répertoire \"lib\" et de ses sous-répertoires");
+						FileUtils.copy(new File("." + File.separator + "lib" + File.separator + "mac"), new File(this.getInstallationFolder() + File.separator + "lib" + File.separator));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			
 			/* Copie de DListor */
-			try {
-				iv.concat("Copie du répertoire \"DListor\" et de ses sous-répertoires");
-				FileUtils.copy(new File("." + File.separator + "DListor" + File.separator), new File(this.getInstallationFolder() + File.separator + "DListor" + File.separator));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			/* Copie de VocalyzeSIVOX */
-			try {
-				iv.concat("Copie du répertoire \"VocalyzeSIVOX\" et de ses sous-répertoires");
-				FileUtils.copy(new File("." + File.separator + "VocalyzeSIVOX" + File.separator), new File(this.getInstallationFolder() + File.separator + "VocalyzeSIVOX" + File.separator));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (!new File(this.getInstallationFolder() + File.separator + "DListor" + File.separator).exists()) {
+				try {
+					iv.concat("Copie du répertoire \"DListor\" et de ses sous-répertoires");
+					FileUtils.copy(new File("." + File.separator + "DListor" + File.separator), new File(this.getInstallationFolder() + File.separator + "DListor" + File.separator));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				/* Copie de VocalyzeSIVOX */
+				try {
+					iv.concat("Copie du répertoire \"VocalyzeSIVOX\" et de ses sous-répertoires");
+					FileUtils.copy(new File("." + File.separator + "VocalyzeSIVOX" + File.separator), new File(this.getInstallationFolder() + File.separator + "VocalyzeSIVOX" + File.separator));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			/* Copie des jeux sélectionnés  */
@@ -399,21 +423,20 @@ public class InstallationController extends JFrame {
 			
 			/* Création des icones pour windows */
 			//TODO
+		}	
+		
+		long copyTotalTime = System.currentTimeMillis() - startCopyTime;
+		
+		long copyTotalTimeSec = (copyTotalTime / 1000);
+		
+		long copyTotalTimeMin = (copyTotalTimeSec / 60);
+		
+		long copyTotalTimeSecRest = copyTotalTimeSec - (copyTotalTimeMin*60);		
 			
-			long copyTotalTime = System.currentTimeMillis() - startCopyTime;
-			
-			long copyTotalTimeSec = (copyTotalTime / 1000);
-			
-			long copyTotalTimeMin = (copyTotalTimeSec / 60);
-			
-			long copyTotalTimeSecRest = copyTotalTimeSec - (copyTotalTimeMin*60);
-			
-			
-			
-			iv.concat("Temps total de l'installation: " + copyTotalTimeMin + " minutes et "  + copyTotalTimeSecRest + " secondes");
-			
-			this.iv.installationFinished();
-		}
+		iv.concat("Temps total de l'installation: " + copyTotalTimeMin + " minutes et "  + copyTotalTimeSecRest + " secondes");
+		
+		this.iv.installationFinished();
+		
 	}
 	
 	public int getYear() {
