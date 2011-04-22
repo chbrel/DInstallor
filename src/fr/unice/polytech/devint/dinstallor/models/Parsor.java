@@ -50,7 +50,7 @@ public class Parsor {
             String age = xmlRoot.getChildText("age");
             
             String title = xmlRoot.getChildText("title");
-
+            
             ArrayList<String> authors = new ArrayList<String>();
             for (Object obj : xmlRoot.getChild("authors").getChildren("author")) {
                 authors.add(((Element) obj).getText());

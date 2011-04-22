@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -140,6 +141,7 @@ public class InstallationController extends JFrame {
 	}
 	
 	public void lunchCopy() {
+		long startCopyTime = System.currentTimeMillis();
 		FileUtils.iv = this.iv;
 		
 		File installDir =  new File(this.getInstallationFolder());
@@ -150,6 +152,7 @@ public class InstallationController extends JFrame {
 		/* Copie du bon répertoire Jre */
 		if(OSValidator.isWindows()) {
 			try {
+				iv.concat("Copie du répertoire \"jre\" et de ses sous-répertoires");
 				FileUtils.copy(new File("." + File.separator + "jre" + File.separator + "win"), new File(this.getInstallationFolder() + File.separator + "jre" + File.separator));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -157,6 +160,7 @@ public class InstallationController extends JFrame {
 			}
 		} else if(OSValidator.isUnix()) {
 			try {
+				iv.concat("Copie du répertoire \"jre\" et de ses sous-répertoires");
 				FileUtils.copy(new File("." + File.separator + "jre" + File.separator + "linux"), new File(this.getInstallationFolder() + File.separator + "jre" + File.separator));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -164,6 +168,7 @@ public class InstallationController extends JFrame {
 			}
 		} else if(OSValidator.isMac()) {
 			try {
+				iv.concat("Copie du répertoire \"jre\" et de ses sous-répertoires");
 				FileUtils.copy(new File("." + File.separator + "jre" + File.separator + "mac"), new File(this.getInstallationFolder() + File.separator + "jre" + File.separator));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -174,6 +179,7 @@ public class InstallationController extends JFrame {
 		/* Copie du bon répertoire Lib */
 		if(OSValidator.isWindows()) {
 			try {
+				iv.concat("Copie du répertoire \"lib\" et de ses sous-répertoires");
 				FileUtils.copy(new File("." + File.separator + "lib" + File.separator + "win"), new File(this.getInstallationFolder() + File.separator + "lib" + File.separator));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -181,6 +187,7 @@ public class InstallationController extends JFrame {
 			}
 		} else if(OSValidator.isUnix()) {
 			try {
+				iv.concat("Copie du répertoire \"lib\" et de ses sous-répertoires");
 				FileUtils.copy(new File("." + File.separator + "lib" + File.separator + "linux"), new File(this.getInstallationFolder() + File.separator + "lib" + File.separator));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -188,6 +195,7 @@ public class InstallationController extends JFrame {
 			}
 		} else if(OSValidator.isMac()) {
 			try {
+				iv.concat("Copie du répertoire \"lib\" et de ses sous-répertoires");
 				FileUtils.copy(new File("." + File.separator + "lib" + File.separator + "mac"), new File(this.getInstallationFolder() + File.separator + "lib" + File.separator));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -195,9 +203,10 @@ public class InstallationController extends JFrame {
 			}
 		}
 		
-		/* Copie de Listor */
+		/* Copie de DListor */
 		try {
-			FileUtils.copy(new File("." + File.separator + "Listor" + File.separator), new File(this.getInstallationFolder() + File.separator + "Listor" + File.separator));
+			iv.concat("Copie du répertoire \"DListor\" et de ses sous-répertoires");
+			FileUtils.copy(new File("." + File.separator + "DListor" + File.separator), new File(this.getInstallationFolder() + File.separator + "DListor" + File.separator));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -205,6 +214,7 @@ public class InstallationController extends JFrame {
 		
 		/* Copie de VocalyzeSIVOX */
 		try {
+			iv.concat("Copie du répertoire \"VocalyzeSIVOX\" et de ses sous-répertoires");
 			FileUtils.copy(new File("." + File.separator + "VocalyzeSIVOX" + File.separator), new File(this.getInstallationFolder() + File.separator + "VocalyzeSIVOX" + File.separator));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -214,6 +224,7 @@ public class InstallationController extends JFrame {
 		/* Copie des jeux sélectionnés  */
 		for(Game g: this.toInstall) {
 			try {
+				iv.concat("Copie du projet \"" + g.getTitle() + "\" (répertoire \"" + g.getGameRep().getName() + "\" et ses sous-répertoires)");
 				FileUtils.copy(g.getGameRep(), new File(this.getInstallationFolder() + File.separator + g.getGameRep().getName() + File.separator));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -224,7 +235,9 @@ public class InstallationController extends JFrame {
 		}
 		
 		/* Création de l'aide */
+		iv.concat("-- Génération de l'aide --");
 		try {
+			iv.concat("Copie des fichiers de base de l'aide");
 			FileUtils.copy(new File("." + File.separator + "DHelp" + File.separator), new File(this.getInstallationFolder() + File.separator + "Aide" + File.separator));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -235,18 +248,19 @@ public class InstallationController extends JFrame {
 		HelpUtils.GAMELIST_INGAMEFOLDER = "<h1>Aide sur les projets installés</h1>\n<ul id=\"listjeux\">\n" + HelpUtils.GAMELIST_INGAMEFOLDER + "</ul>\n";
 		
 			// Création du fichier jeux.html
-		iv.concat("-- Génération de l'aide --");
+		
 		
 		String jeuxContent = HelpUtils.HEADER + HelpUtils.GAMELIST;
 		jeuxContent += "<div id=\"aidejeu\">\n";
 		jeuxContent += "Cliquez sur le nom d'un jeu ci-contre pour voir l'aide associée :)\n";
 		jeuxContent += "</div>\n";
 		jeuxContent += HelpUtils.FOOTER;
-		FileUtils.write(this.getInstallationFolder() + File.separator + "aide" + File.separator + "jeux.html"  , jeuxContent);
+		FileUtils.write(this.getInstallationFolder() + File.separator + "Aide" + File.separator + "jeux.html"  , jeuxContent);
 		
 			
 			//Création de tous les fichiers aides des jeux installés
 		for(Game g: this.toInstall) {
+			iv.concat("Génération de l'aide pour le jeu \"" + g.getTitle() + "\"");
 			String gameContent = HelpUtils.HEADER_INGAMEFOLDER + HelpUtils.GAMELIST_INGAMEFOLDER;
 			gameContent += "<div id=\"aidejeu\">\n";
 			
@@ -339,11 +353,33 @@ public class InstallationController extends JFrame {
 			
 			gameContent += "</div>\n";
 			gameContent += HelpUtils.FOOTER;
-			FileUtils.write(this.getInstallationFolder() + File.separator + "aide" + File.separator + "jeux" + File.separator + g.getGameRep().getName() + ".html" , gameContent);
+			FileUtils.write(this.getInstallationFolder() + File.separator + "Aide" + File.separator + "jeux" + File.separator + g.getGameRep().getName() + ".html" , gameContent);
+			
+			File helpFolder = new File(g.getGameRep().getAbsolutePath() + File.separator + "doc" + File.separator + g.getGameRep().getName() + File.separator);
+			if(helpFolder.exists()) {
+				try {
+					FileUtils.copy(helpFolder, new File(this.getInstallationFolder() + File.separator + "Aide" + File.separator + "jeux" + File.separator + g.getGameRep().getName() + File.separator));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		/* Création des icones pour windows */
 		//TODO
+		
+		long copyTotalTime = System.currentTimeMillis() - startCopyTime;
+		
+		long copyTotalTimeSec = (copyTotalTime / 1000);
+		
+		long copyTotalTimeMin = (copyTotalTimeSec / 60);
+		
+		long copyTotalTimeSecRest = copyTotalTimeSec - (copyTotalTimeMin*60);
+		
+		
+		
+		iv.concat("Temps total de l'installation: " + copyTotalTimeMin + " minutes et "  + copyTotalTimeSecRest + " secondes");
 		
 		this.iv.installationFinished();
 	}

@@ -207,7 +207,6 @@ public class ComponentsChoicesView  extends InstallationView {
 		
 		if(this.dateDisplay) {
 			TreeMap<Integer, ArrayList<Game>> dateGames = new TreeMap<Integer, ArrayList<Game>>();
-			
 			for(Game g: this.games) {
 				if(!dateGames.containsKey(g.getAnnee())) {
 					dateGames.put(g.getAnnee(), new ArrayList<Game>());

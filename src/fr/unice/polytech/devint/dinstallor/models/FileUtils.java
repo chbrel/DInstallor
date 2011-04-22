@@ -26,7 +26,7 @@ public class FileUtils {
 	 * @author Romaric Pighetti
 	 */
 	public static void write(String path, String content) {
-		iv.concat("Ecriute de " + path);
+//		iv.concat("Ecriture de " + path);
 		try {
 			FileWriter fw = new FileWriter(path, true);
 			BufferedWriter output = new BufferedWriter(fw);
@@ -49,7 +49,7 @@ public class FileUtils {
 	}
 
 	public static void copyDirectory(final File from, final File to) throws IOException {
-		iv.concat("-- Copie de répertoire: de " + from.getAbsolutePath() + " vers " + to.getAbsolutePath() + " --");
+//		iv.concat("-- Copie de répertoire: de " + from.getAbsolutePath() + " vers " + to.getAbsolutePath() + " --");
 		
 		if (! to.exists()) {
 			to.mkdir();
@@ -62,7 +62,7 @@ public class FileUtils {
 	}
 	
 	public static void copyFile(final File from, final File to) throws IOException {
-		iv.concat("Copie de fichier: de " + from.getAbsolutePath() + " vers " + to.getAbsolutePath());
+//		iv.concat("Copie de fichier: de " + from.getAbsolutePath() + " vers " + to.getAbsolutePath());
 		
 		final InputStream inStream = new FileInputStream(from);
 		final OutputStream outStream = new FileOutputStream(to);
