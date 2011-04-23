@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -152,6 +153,39 @@ public class InstallationController extends JFrame {
 	}
 	
 	public void launchUninstall() {
+		File idfile = new File(this.getInstallationFolder()+File.separator+"intallationid");
+		if (idfile.exists() && idfile.isFile()) {
+			try {
+				FileReader fr = new FileReader(idfile);
+				char[] cbuf = new char[50]; 
+				int nbChar = fr.read(cbuf);
+				String fileNumber = "";
+				for (int i = 0; i<nbChar; i++) {
+					fileNumber+=cbuf[i];
+				}
+				try {
+					if (Integer.parseInt(fileNumber) != this.getInstallationFolder().hashCode()) {
+						iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+						return;
+					}
+				} catch (NumberFormatException e) {
+					iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+					return;
+				}
+			} catch (FileNotFoundException e) {
+				iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+				e.printStackTrace();
+				return;
+			} catch (IOException e) {
+				iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+				e.printStackTrace();
+				return;
+			}
+			
+		} else {
+			iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+			return;
+		}
 		boolean uninstallAll = false;
 		ArrayList<Game> installedGames = Game.getAll(this.getInstallationFolder());
 		if (toInstall.size() == 0) {
@@ -183,6 +217,7 @@ public class InstallationController extends JFrame {
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"Listor"));
 			iv.concat("Destruction du répertoire \"DListor\" et de ses sous répertoires.");
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"DListor"));
+			new File(this.getInstallationFolder()+File.separator+"intallationid").delete();
 		}
 	}
 	
@@ -196,6 +231,18 @@ public class InstallationController extends JFrame {
 			File installDir =  new File(this.getInstallationFolder());
 			if(!installDir.exists()) {
 				installDir.mkdirs();
+			}
+			
+			File idfile = new File(this.getInstallationFolder()+File.separator+"intallationid");
+			if (!idfile.exists()) {
+				try {
+					FileWriter fw = new FileWriter(idfile);
+					fw.write(""+this.getInstallationFolder().hashCode());
+					fw.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			/* Copie du bon répertoire Jre */
