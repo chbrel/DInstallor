@@ -14,9 +14,12 @@ import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -27,6 +30,7 @@ import fr.unice.polytech.devint.dinstallor.models.Game;
 import fr.unice.polytech.devint.dinstallor.models.GameCategory;
 import fr.unice.polytech.devint.dinstallor.models.HelpUtils;
 import fr.unice.polytech.devint.dinstallor.models.OSValidator;
+import fr.unice.polytech.devint.dinstallor.models.Shortcut;
 import fr.unice.polytech.devint.dinstallor.views.*;
 
 public class InstallationController extends JFrame {
@@ -469,7 +473,23 @@ public class InstallationController extends JFrame {
 			}
 			
 			/* Création des icones pour windows */
-			//TODO
+			if(OSValidator.isWindows()) {
+				try {
+					Shortcut scut = new Shortcut(new File(this.getInstallationFolder()+File.separator+"DListor"+File.separator+"bin"+File.separator+"execution.bat"));
+					OutputStream os = new FileOutputStream(System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"DeViNT.lnk");
+					os.write(scut.getBytes());
+					os.flush();
+					os.close();
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}	
 		
 		long copyTotalTime = System.currentTimeMillis() - startCopyTime;
