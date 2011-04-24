@@ -33,7 +33,7 @@ public class OSValidator{
 		 
 		String os = System.getProperty("os.name").toLowerCase();
 		//windows XP
-	    return (os.indexOf( "win" ) >= 0) && (os.indexOf( "XP" ) >= 0); 
+	    return (os.indexOf( "win" ) >= 0) && (os.indexOf( "xp" ) >= 0); 
  
 	}
 	

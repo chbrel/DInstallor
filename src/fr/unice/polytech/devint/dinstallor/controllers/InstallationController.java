@@ -22,6 +22,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 
@@ -44,6 +45,8 @@ public class InstallationController extends JFrame {
 	
 	private int year;
 	private String installFolder;
+	private String HelpShortcutPath;
+	private String GameShortcutPath;
 	private ArrayList<Game> toInstall;
 	private ArrayList<Game> toUninstall;
 	
@@ -91,6 +94,22 @@ public class InstallationController extends JFrame {
 		this.iv = new InstallingView(this);
 		
 		this.ev = new EndView(this);
+		
+		this.GameShortcutPath = "";
+		this.HelpShortcutPath = "";
+		
+		if (OSValidator.isWindowsSeven()) {
+			this.GameShortcutPath = System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"Jeux DeViNT.lnk";
+			this.HelpShortcutPath = System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"Aide DeViNT.lnk";
+		} else if (OSValidator.isWindowsXP()) {
+			if (Locale.getDefault().equals(Locale.FRANCE)) {
+				this.GameShortcutPath = System.getProperty("user.home")+File.separator+"Bureau"+File.separator+"Jeux DeViNT.lnk";
+				this.HelpShortcutPath = System.getProperty("user.home")+File.separator+"Bureau"+File.separator+"Aide DeViNT.lnk";
+			}else if (Locale.getDefault().equals(Locale.ENGLISH)) {
+				this.GameShortcutPath = System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"Jeux DeViNT.lnk";
+				this.HelpShortcutPath = System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"Aide DeViNT.lnk";
+			}
+		}
 		
 		this.init();
 	}
@@ -157,7 +176,7 @@ public class InstallationController extends JFrame {
 	}
 	
 	public void launchUninstall() {
-		File idfile = new File(this.getInstallationFolder()+File.separator+"intallationid");
+		File idfile = new File(this.getInstallationFolder()+File.separator+"installationid");
 		if (idfile.exists() && idfile.isFile()) {
 			try {
 				FileReader fr = new FileReader(idfile);
@@ -169,25 +188,25 @@ public class InstallationController extends JFrame {
 				}
 				try {
 					if (Integer.parseInt(fileNumber) != this.getInstallationFolder().hashCode()) {
-						iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+						iv.concat("Il n'existe pas de projets déjà installés dans "+this.getInstallationFolder());
 						return;
 					}
 				} catch (NumberFormatException e) {
-					iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+					iv.concat("Il n'existe pas de projets déjà installés dans "+this.getInstallationFolder());
 					return;
 				}
 			} catch (FileNotFoundException e) {
-				iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+				iv.concat("Il n'existe pas de projets déjà installés dans "+this.getInstallationFolder());
 				e.printStackTrace();
 				return;
 			} catch (IOException e) {
-				iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+				iv.concat("Il n'existe pas de projets déjà installés dans "+this.getInstallationFolder());
 				e.printStackTrace();
 				return;
 			}
 			
 		} else {
-			iv.concat("Pas d'installation de DeViNT dans "+this.getInstallationFolder());
+			iv.concat("Il n'existe pas de projets déjà installés dans "+this.getInstallationFolder());
 			return;
 		}
 		boolean uninstallAll = false;
@@ -207,7 +226,7 @@ public class InstallationController extends JFrame {
 			}
 		}
 		
-		iv.concat("Suppression des aides générées précédament.");
+		iv.concat("Suppression des aides générées précédemment.");
 		FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"Aide"));
 		
 		if (uninstallAll) {
@@ -221,7 +240,13 @@ public class InstallationController extends JFrame {
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"Listor"));
 			iv.concat("Destruction du répertoire \"DListor\" et de ses sous répertoires.");
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"DListor"));
-			new File(this.getInstallationFolder()+File.separator+"intallationid").delete();
+			if (OSValidator.isWindows() && !this.GameShortcutPath.equals("") && !this.HelpShortcutPath.equals("")) {
+				iv.concat("Suppression du raccourcis Jeux DeViNT.");
+				FileUtils.rmDir(new File(this.GameShortcutPath));
+				iv.concat("Suppression du raccourcis Aide DeViNT.");
+				FileUtils.rmDir(new File(this.HelpShortcutPath));
+				new File(this.getInstallationFolder()+File.separator+"installationid").delete();
+			}
 		}
 	}
 	
@@ -237,7 +262,7 @@ public class InstallationController extends JFrame {
 				installDir.mkdirs();
 			}
 			
-			File idfile = new File(this.getInstallationFolder()+File.separator+"intallationid");
+			File idfile = new File(this.getInstallationFolder()+File.separator+"installationid");
 			if (!idfile.exists()) {
 				try {
 					FileWriter fw = new FileWriter(idfile);
@@ -320,7 +345,7 @@ public class InstallationController extends JFrame {
 				/* Copie de VocalyzeSIVOX */
 				try {
 					iv.concat("Copie du répertoire \"VocalyzeSIVOX\" et de ses sous-répertoires");
-					FileUtils.copy(new File("." + File.separator + "VocalyzeSIVOX" + File.separator), new File(this.getInstallationFolder() + File.separator + "VocalyzeSIVOX" + File.separator));
+					FileUtils.copy(new File("." + File.separator + "LesLogiciels" + File.separator + "VocalyzeSIVOX" + File.separator), new File(this.getInstallationFolder() + File.separator + "VocalyzeSIVOX" + File.separator));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -473,13 +498,18 @@ public class InstallationController extends JFrame {
 			}
 			
 			/* Création des icones pour windows */
-			if(OSValidator.isWindows()) {
+			if(OSValidator.isWindows() && !this.GameShortcutPath.equals("") && !this.HelpShortcutPath.equals("")) {
 				try {
-					Shortcut scut = new Shortcut(new File(this.getInstallationFolder()+File.separator+"DListor"+File.separator+"bin"+File.separator+"execution.bat"));
-					OutputStream os = new FileOutputStream(System.getProperty("user.home")+File.separator+"Desktop"+File.separator+"DeViNT.lnk");
-					os.write(scut.getBytes());
-					os.flush();
-					os.close();
+					Shortcut scutJeux = new Shortcut(new File(this.getInstallationFolder()+File.separator+"DListor"+File.separator+"bin"+File.separator+"execution.bat"));
+					Shortcut scutAide = new Shortcut(new File(this.getInstallationFolder()+File.separator+"Aide"+File.separator+"index.html"));
+					OutputStream osJeux = new FileOutputStream(this.GameShortcutPath);
+					OutputStream osAide = new FileOutputStream(this.HelpShortcutPath);
+					osJeux.write(scutJeux.getBytes());
+					osJeux.flush();
+					osJeux.close();
+					osAide.write(scutAide.getBytes());
+					osAide.flush();
+					osAide.close();
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				} catch (FileNotFoundException e) {
