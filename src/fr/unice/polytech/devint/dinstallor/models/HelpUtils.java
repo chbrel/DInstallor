@@ -7,6 +7,7 @@ public class HelpUtils {
 		+ "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
 		+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"fr\" lang=\"fr\">\n"
 		+ "  <head>\n"
+		+ "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"
 		+ "    <title>CD DeViNT: Aide sur les jeux</title>\n"
 		+ "    <link rel=\"shortcut icon\" href=\"./resources/aide.ico\" type=\"image/x-icon\" />\n"
 		+ "    <link rel=\"icon\" href=\"./resources/aide.ico\" type=\"image/x-icon\" />\n"
@@ -31,13 +32,14 @@ public class HelpUtils {
 		+ "</ul>\n"
 		+ "    <div id=\"main\">\n"
 		+ "      <a name=\"skip\"></a>\n"
-		+ "		 <a name=\"top\" />\n";
+		+ "		 <a name=\"top\" ></a>\n";
 	
 	public static String HEADER_INGAMEFOLDER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 		+ "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n"
 		+ "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
 		+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"fr\" lang=\"fr\">\n"
 		+ "  <head>\n"
+		+ "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"
 		+ "    <title>CD DeViNT: Aide sur les jeux</title>\n"
 		+ "    <link rel=\"shortcut icon\" href=\"../resources/aide.ico\" type=\"image/x-icon\" />\n"
 		+ "    <link rel=\"icon\" href=\"../resources/aide.ico\" type=\"image/x-icon\" />\n"
@@ -62,7 +64,7 @@ public class HelpUtils {
 		+ "</ul>\n"
 		+ "    <div id=\"main\">\n"
 		+ "      <a name=\"skip\"></a>\n"
-		+ "		 <a name=\"top\" />\n";
+		+ "		 <a name=\"top\" ></a>\n";
 	
 	public static String FOOTER = "<div class=\"clear\">&nbsp;</div>\n" +
 			"		<a href=\"#top\">Haut de page</a>" +

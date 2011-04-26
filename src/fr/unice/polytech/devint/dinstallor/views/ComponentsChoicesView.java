@@ -208,10 +208,12 @@ public class ComponentsChoicesView  extends InstallationView {
 		if(this.dateDisplay) {
 			TreeMap<Integer, ArrayList<Game>> dateGames = new TreeMap<Integer, ArrayList<Game>>();
 			for(Game g: this.games) {
-				if(!dateGames.containsKey(g.getAnnee())) {
-					dateGames.put(g.getAnnee(), new ArrayList<Game>());
+				if(!g.getTitle().equals("SIVOX")) {//TODO A Supprimer lorsque le nouvel installeur sera en place SEUL
+					if(!dateGames.containsKey(g.getAnnee())) {
+						dateGames.put(g.getAnnee(), new ArrayList<Game>());
+					}
+					dateGames.get(g.getAnnee()).add(g);
 				}
-				dateGames.get(g.getAnnee()).add(g);
 			}
 			
 			for(Integer annee: dateGames.keySet()) {
@@ -225,11 +227,13 @@ public class ComponentsChoicesView  extends InstallationView {
 			TreeMap<GameCategory, ArrayList<Game>> catGames = new TreeMap<GameCategory, ArrayList<Game>>();
 			
 			for(Game g: this.games) {
-				for(GameCategory gameCat: g.getGameCategories()) {
-					if(!catGames.containsKey(gameCat)) {
-						catGames.put(gameCat, new ArrayList<Game>());
+				if(!g.getTitle().equals("SIVOX")) {//TODO A Supprimer lorsque le nouvel installeur sera en place SEUL
+					for(GameCategory gameCat: g.getGameCategories()) {
+						if(!catGames.containsKey(gameCat)) {
+							catGames.put(gameCat, new ArrayList<Game>());
+						}
+						catGames.get(gameCat).add(g);
 					}
-					catGames.get(gameCat).add(g);
 				}
 			}
 			

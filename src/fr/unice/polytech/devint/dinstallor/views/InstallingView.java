@@ -27,6 +27,7 @@ public class InstallingView extends InstallationView {
 	private JLabel copyingContent;
 	private String copyingLogs;
 	
+	private JPanel buttons;
 	private JButton nextButton;
 	
 	public InstallingView(InstallationController ic) {
@@ -79,7 +80,7 @@ public class InstallingView extends InstallationView {
 		actions.setLayout(new BorderLayout());
 		this.add(actions, BorderLayout.SOUTH);
 		
-		JPanel buttons = new JPanel();
+		this.buttons = new JPanel();
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		actions.add(buttons, BorderLayout.EAST);
 /*		
@@ -95,7 +96,7 @@ public class InstallingView extends InstallationView {
 		});
 		buttons.add(cancelButton);
 */		
-		this.nextButton = new JButton("Suivant");
+		/*this.nextButton = new JButton("Suivant");
 		this.nextButton.disable();
 		this.nextButton.addActionListener(new ActionListener() {
 
@@ -106,7 +107,7 @@ public class InstallingView extends InstallationView {
 			}
 			
 		});
-		buttons.add(this.nextButton);
+		buttons.add(this.nextButton);*/
 	}
 	
 	public void concat(String content) {
@@ -138,6 +139,19 @@ public class InstallingView extends InstallationView {
 	public void installationFinished() {
 		this.concat("<br/><br/>");
 		this.concat("<span style=\"color:green;font-style:bold;\">L'installation est terminée. Cliquez sur le bouton 'Suivant' pour continuer.</span>");
+		this.nextButton = new JButton("Suivant");
+//		this.nextButton.disable();
+		this.nextButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				nextStep();
+			}
+			
+		});
+		buttons.add(this.nextButton);
 		this.nextButton.enable();
+		this.validate();
 	}
 }

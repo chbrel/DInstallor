@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileSystemView;
 
 import fr.unice.polytech.devint.dinstallor.models.FileUtils;
 import fr.unice.polytech.devint.dinstallor.models.Game;
@@ -240,6 +241,10 @@ public class InstallationController extends JFrame {
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"Listor"));
 			iv.concat("Destruction du répertoire \"DListor\" et de ses sous répertoires.");
 			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"DListor"));
+			iv.concat("Destruction du répertoire \"Aide\" et de ses sous répertoires.");
+			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator+"Aide"));
+			iv.concat("Destruction du répertoire d'installation et de ses sous répertoires.");
+			FileUtils.rmDir(new File(this.getInstallationFolder()+File.separator));
 			if (OSValidator.isWindows() && !this.GameShortcutPath.equals("") && !this.HelpShortcutPath.equals("")) {
 				iv.concat("Suppression du raccourcis Jeux DeViNT.");
 				FileUtils.rmDir(new File(this.GameShortcutPath));
@@ -341,7 +346,9 @@ public class InstallationController extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+			}
+			
+			if (!new File(this.getInstallationFolder() + File.separator + "VocalyzeSIVOX" + File.separator).exists()) {
 				/* Copie de VocalyzeSIVOX */
 				try {
 					iv.concat("Copie du répertoire \"VocalyzeSIVOX\" et de ses sous-répertoires");
@@ -545,7 +552,28 @@ public class InstallationController extends JFrame {
 	}
 	
 	public void setInstallationFolder(String installFolder) {
-		this.installFolder = installFolder;
+		if(OSValidator.isWindows()) {
+			char c = installFolder.charAt(installFolder.length()-1);
+			if(c == '\\') {
+				this.installFolder = installFolder;
+			} else {
+				this.installFolder = installFolder + "\\";
+			}
+		} else if(OSValidator.isUnix()) {
+			char c = installFolder.charAt(installFolder.length()-1);
+			if(c == '/') {
+				this.installFolder = installFolder;
+			} else {
+				this.installFolder = installFolder + "/";
+			}
+		} else if(OSValidator.isMac()) {
+			char c = installFolder.charAt(installFolder.length()-1);
+			if(c == '/') {
+				this.installFolder = installFolder;
+			} else {
+				this.installFolder = installFolder + "/";
+			}
+		}
 	}
 	
 	public void setGamesToInstall(ArrayList<Game> toInstall) {
