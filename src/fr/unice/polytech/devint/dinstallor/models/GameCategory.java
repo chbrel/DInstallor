@@ -10,7 +10,8 @@ public enum GameCategory {
     CONDUITE("Conduite"), DESSIN("Dessin"),
     CONNAISSANCES("Connaissances"), LETTRES("Lettres"),
     MEMOIRE("Mémoire"), MUSIQUE("Musique"),
-    RAPIDITE("Rapidité"), MOUVEMENT("Mouvement");
+    RAPIDITE("Rapidité"), MOUVEMENT("Mouvement"),
+    CALCUL("calcul");
     
     // The categorie string.
     private String categorie;
