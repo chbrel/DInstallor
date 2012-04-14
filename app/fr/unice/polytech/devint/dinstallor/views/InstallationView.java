@@ -2,7 +2,8 @@ package fr.unice.polytech.devint.dinstallor.views;
 
 import javax.swing.JPanel;
 
-import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
+import controllers.InstallationController;
+
 
 public class InstallationView extends JPanel {
 	

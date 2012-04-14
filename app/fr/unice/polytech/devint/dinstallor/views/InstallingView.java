@@ -19,7 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
+import controllers.InstallationController;
+
 import fr.unice.polytech.devint.dinstallor.models.Picture;
 
 public class InstallingView extends InstallationView {

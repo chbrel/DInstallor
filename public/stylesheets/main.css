@@ -1,0 +1,16 @@
+body {
+	width: 80%;
+	min-width: 800px;
+	margin: auto;
+}
+
+div.header {
+	width: 100%;
+	background-color: lightgrey;
+	text-align: center;
+}
+
+div.header img {
+	display: block;
+	margin: auto;
+}

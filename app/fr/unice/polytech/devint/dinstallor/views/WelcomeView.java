@@ -8,41 +8,36 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
+import controllers.InstallationController;
+
 import fr.unice.polytech.devint.dinstallor.models.Picture;
 
-public class ConfigView extends InstallationView {
-	
-	private JTextField installFolderInfo;
-	
-	private String defaultInstallationFolder;
+public class WelcomeView extends InstallationView {
 
-	public ConfigView(InstallationController ic, String defaultInstallationFolder) {
+	public WelcomeView(InstallationController ic) {
 		super(ic);
-		
-		this.defaultInstallationFolder = defaultInstallationFolder;
 		
 		this.setLayout(new BorderLayout());
 		
 		JPanel headPanel = new JPanel();
 		headPanel.setLayout(new BorderLayout());
 		
-		headPanel.add((new Picture("." + File.separator + "resources" + File.separator + "logo_devint.png")).getJLabel(), BorderLayout.WEST);
+		headPanel.add((new Picture("." + File.separator + "resources" + File.separator + "header.png")).getJLabel(), BorderLayout.NORTH);
 		
 		JPanel titlePanel = new JPanel();
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.X_AXIS));
 		
 		titlePanel.add(Box.createHorizontalGlue());
 		
-		JLabel title = new JLabel("Configuration de l'installation");
+		JLabel title = new JLabel("Bienvenue dans l'installation du CD DeViNT " + ic.getYear() + "!");
 		title.setFont(title.getFont().deriveFont(Font.BOLD));
 		title.setFont(title.getFont().deriveFont(Float.parseFloat("25")));
 		titlePanel.add(title);
@@ -54,31 +49,23 @@ public class ConfigView extends InstallationView {
 		
 		this.add(headPanel, BorderLayout.NORTH);
 		
+		JPanel welcomePanel = new JPanel();
+		welcomePanel.setBackground(Color.WHITE);
 		
+		String welcomeText = "<html>";
+		welcomeText += "<p>Vous êtes sur le point d'installer les projets présents sur ce CD DeViNT " + ic.getYear() + " et nous vous en remercions.</p><br/>";
+		welcomeText += "<p>Les logiciels de ce CD sont conçus et développés par les élèves ingénieurs du département Sciences Informatiques de l'école Polytech'Nice Sophia dans le cadre de leurs projets de troisième année.</p><br/>";
+		welcomeText += "<p>Ces projets s'adressent en premier lieu aux élèves déficients visuels du Collège ou de l'enseignement primaire, aidés de leur entourage famille, enseignants et médecins, associations.</p><br/>";
+		welcomeText += "<p>Le CD fonctionne a priori sous Windows, XP, Seven (32 bits et 64 bits), et pour certains projets sous Linux, ou sous Mac OS X.</p><br/>";
+		welcomeText += "<p>Le CD est distribué gratuitement sur demande, dans le cadre d'une utilisation non commerciale et non militaire.</p><br/><br/>";
+		welcomeText += "<p>Cliquez sur le bouton 'Suivant' pour continuer l'installation.</p>";
+		welcomeText += "</html>";
 		
-		JPanel configPanel = new JPanel();
-		configPanel.setLayout(new BorderLayout());
-		configPanel.setBackground(Color.WHITE);
-		this.add(configPanel);
+		JLabel welcomeContent = new JLabel(welcomeText);
+		welcomeContent.setPreferredSize(new Dimension(900,718));
+		welcomePanel.add(welcomeContent);
 		
-		JPanel installFolderPanel = new JPanel();
-		installFolderPanel.setBackground(Color.WHITE);
-		installFolderPanel.setLayout(new BoxLayout(installFolderPanel, BoxLayout.X_AXIS));
-		configPanel.add(installFolderPanel, BorderLayout.CENTER);
-		
-		JLabel installFolderLabel =  new JLabel("Dossier d'installation:");
-		installFolderPanel.add(installFolderLabel);
-		this.installFolderInfo = new JTextField(this.defaultInstallationFolder);
-		Dimension d = new Dimension(800, 50);
-		this.installFolderInfo.setPreferredSize(d);
-		this.installFolderInfo.setSize(d);
-		this.installFolderInfo.setMaximumSize(d);
-		this.installFolderInfo.setMinimumSize(d);
-		
-		installFolderPanel.add(installFolderInfo);
-		
-//		configPanel.add(Box.createVerticalGlue());
-		
+		this.add(welcomePanel, BorderLayout.CENTER);
 		
 		JPanel actions = new JPanel();
 		actions.setLayout(new BorderLayout());
@@ -115,17 +102,16 @@ public class ConfigView extends InstallationView {
 	
 	public void cancel() {
 		int n = JOptionPane.showConfirmDialog(
-		    this.getController(),
-		    "Voulez-vous vraiment quitter l'installation?",
-		    "",
-		    JOptionPane.YES_NO_OPTION);
-		if(n == JOptionPane.YES_OPTION) {
-			this.getController().cancel();
-		}
+			    this.getController(),
+			    "Voulez-vous vraiment quitter l'installation ?",
+			    "",
+			    JOptionPane.YES_NO_OPTION);
+			if(n == JOptionPane.YES_OPTION) {
+				this.getController().cancel();
+			}
 	}
 	
 	public void nextStep() {
-		this.getController().setInstallationFolder(this.installFolderInfo.getText());
 		this.getController().nextStep();
 	}
 }

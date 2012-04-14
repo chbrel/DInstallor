@@ -14,14 +14,22 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
+import controllers.InstallationController;
+
 import fr.unice.polytech.devint.dinstallor.models.Picture;
 
-public class EndView extends InstallationView {
+public class ConfigView extends InstallationView {
+	
+	private JTextField installFolderInfo;
+	
+	private String defaultInstallationFolder;
 
-	public EndView(InstallationController ic) {
+	public ConfigView(InstallationController ic, String defaultInstallationFolder) {
 		super(ic);
+		
+		this.defaultInstallationFolder = defaultInstallationFolder;
 		
 		this.setLayout(new BorderLayout());
 		
@@ -35,7 +43,7 @@ public class EndView extends InstallationView {
 		
 		titlePanel.add(Box.createHorizontalGlue());
 		
-		JLabel title = new JLabel("L'installation du CD DeViNT " + ic.getYear() + " est terminée!");
+		JLabel title = new JLabel("Configuration de l'installation");
 		title.setFont(title.getFont().deriveFont(Font.BOLD));
 		title.setFont(title.getFont().deriveFont(Float.parseFloat("25")));
 		titlePanel.add(title);
@@ -47,31 +55,31 @@ public class EndView extends InstallationView {
 		
 		this.add(headPanel, BorderLayout.NORTH);
 		
-		/*JPanel endPanel = new JPanel();
-		endPanel.setBackground(Color.WHITE);
 		
-		JLabel endContent = new JLabel("Merci d'avoir installé les projets du CD DeViNT 2011!");
 		
-		endPanel.add(endContent);
-		this.add(endPanel, BorderLayout.CENTER);*/
+		JPanel configPanel = new JPanel();
+		configPanel.setLayout(new BorderLayout());
+		configPanel.setBackground(Color.WHITE);
+		this.add(configPanel);
 		
-		JPanel endPanel = new JPanel();
-		endPanel.setBackground(Color.WHITE);
+		JPanel installFolderPanel = new JPanel();
+		installFolderPanel.setBackground(Color.WHITE);
+		installFolderPanel.setLayout(new BoxLayout(installFolderPanel, BoxLayout.X_AXIS));
+		configPanel.add(installFolderPanel, BorderLayout.CENTER);
 		
-		String endText = "<html>";
-		endText += "<p>Les projets sélectionnés ont été installés, et une icône de lancement intitulée \"Jeux DeViNT\" a été ajoutée sur le bureau.</p><br/>";
-		endText += "<p>La synthèse vocale SIVOX qui a été installée pour les projets Devint utilise le moteur et les voix françaises du projet MBROLA de l'Université Polytechnique de Mons en Belgique.</p><br/>";
-		endText += "<p>Une aide sur les projets a été installée, ainsi qu'une icône \"Aide DeViNT\" placée sur le bureau pour y accéder.</p><br/>";
-		endText += "<p>Vous pourrez dans le futur rajouter de nouveaux projets tirés du CD, ou les désinstaller tous en une fois.</p><br/><br/>";
-		endText += "<p>A vous de jouer maintenant !</p><br/><br/>";
-		endText += "<p>Cliquez sur le bouton 'Quitter' pour sortir de l'installation.</p>";
-		endText += "</html>";
+		JLabel installFolderLabel =  new JLabel("Dossier d'installation:");
+		installFolderPanel.add(installFolderLabel);
+		this.installFolderInfo = new JTextField(this.defaultInstallationFolder);
+		Dimension d = new Dimension(800, 50);
+		this.installFolderInfo.setPreferredSize(d);
+		this.installFolderInfo.setSize(d);
+		this.installFolderInfo.setMaximumSize(d);
+		this.installFolderInfo.setMinimumSize(d);
 		
-		JLabel endContent = new JLabel(endText);
-		endContent.setPreferredSize(new Dimension(900,718));
-		endPanel.add(endContent);
+		installFolderPanel.add(installFolderInfo);
 		
-		this.add(endPanel, BorderLayout.CENTER);
+//		configPanel.add(Box.createVerticalGlue());
+		
 		
 		JPanel actions = new JPanel();
 		actions.setLayout(new BorderLayout());
@@ -81,19 +89,19 @@ public class EndView extends InstallationView {
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		actions.add(buttons, BorderLayout.EAST);
 		
-		JButton endButton = new JButton("Quitter");
-		endButton.addActionListener(new ActionListener() {
+		JButton cancelButton = new JButton("Annuler");
+		cancelButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				end();
+				cancel();
 			}
 			
 		});
-		buttons.add(endButton);
+		buttons.add(cancelButton);
 		
-/*		JButton nextButton = new JButton("Next");
+		JButton nextButton = new JButton("Suivant");
 		nextButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -104,15 +112,21 @@ public class EndView extends InstallationView {
 			
 		});
 		buttons.add(nextButton);
-*/
 	}
 	
-	public void end() {
-		this.getController().cancel();
+	public void cancel() {
+		int n = JOptionPane.showConfirmDialog(
+		    this.getController(),
+		    "Voulez-vous vraiment quitter l'installation?",
+		    "",
+		    JOptionPane.YES_NO_OPTION);
+		if(n == JOptionPane.YES_OPTION) {
+			this.getController().cancel();
+		}
 	}
 	
-/*	public void nextStep() {
+	public void nextStep() {
+		this.getController().setInstallationFolder(this.installFolderInfo.getText());
 		this.getController().nextStep();
 	}
-*/
 }

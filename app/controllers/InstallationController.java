@@ -8,7 +8,7 @@
  * ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
  */
 
-package fr.unice.polytech.devint.dinstallor.controllers;
+package controllers;
 
 import java.awt.Dimension;
 import java.io.BufferedReader;

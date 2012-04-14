@@ -22,7 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
-import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
+import controllers.InstallationController;
+
 import fr.unice.polytech.devint.dinstallor.models.Picture;
 
 public class LicenceView extends InstallationView {

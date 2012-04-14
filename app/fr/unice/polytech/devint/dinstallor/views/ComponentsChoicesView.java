@@ -24,7 +24,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import fr.unice.polytech.devint.dinstallor.controllers.InstallationController;
+import controllers.InstallationController;
+
 import fr.unice.polytech.devint.dinstallor.models.Game;
 import fr.unice.polytech.devint.dinstallor.models.GameCategory;
 import fr.unice.polytech.devint.dinstallor.models.Picture;
