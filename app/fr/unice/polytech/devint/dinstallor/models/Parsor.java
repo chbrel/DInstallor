@@ -1,4 +1,6 @@
 package fr.unice.polytech.devint.dinstallor.models;
+import models.Game;
+
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;

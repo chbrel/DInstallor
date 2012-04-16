@@ -27,8 +27,9 @@ import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileSystemView;
 
+import models.Game;
+
 import fr.unice.polytech.devint.dinstallor.models.FileUtils;
-import fr.unice.polytech.devint.dinstallor.models.Game;
 import fr.unice.polytech.devint.dinstallor.models.GameCategory;
 import fr.unice.polytech.devint.dinstallor.models.HelpUtils;
 import fr.unice.polytech.devint.dinstallor.models.OSValidator;

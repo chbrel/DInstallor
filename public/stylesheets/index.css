@@ -7,10 +7,10 @@ body {
 div.header {
 	width: 100%;
 	background-color: lightgrey;
-	height: 100px;
+	text-align: center;
 }
 
 div.header img {
-	float: left;
-	margin-right: 5px;
+	display: block;
+	margin: auto;
 }
